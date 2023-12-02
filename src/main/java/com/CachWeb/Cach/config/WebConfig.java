@@ -19,15 +19,15 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/static/assets/");
     }
 
-    @Bean
-    public SpringResourceTemplateResolver templateResolver() {
-        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-        templateResolver.setPrefix("classpath:/templates/");
-        templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("HTML5");// Use "HTML" instead of "Html"
-        templateResolver.setCharacterEncoding("UTF-8");
-        return templateResolver;
-    }
+//    @Bean
+//    public SpringResourceTemplateResolver templateResolver() {
+//        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+//        templateResolver.setPrefix("classpath:/templates/");
+//        templateResolver.setSuffix(".html");
+//        templateResolver.setTemplateMode("HTML");// Use "HTML" instead of "Html"
+//        templateResolver.setCharacterEncoding("UTF-8");
+//        return templateResolver;
+//    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
