@@ -57,7 +57,7 @@ public class AuthController {
             }
         }
 
-        return "/index";
+        return "index";
     }
 
 
