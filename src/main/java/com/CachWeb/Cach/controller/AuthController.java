@@ -31,7 +31,7 @@ public class AuthController {
     }
 
     // handler method to handle home page request
-    @GetMapping({"/index","/"})
+    @GetMapping("/")
 
     public String home(Model model, Principal principal) {
         List<ExchangeRate> exchangeRates = exchangeRateService.getAllExchangeRates();
