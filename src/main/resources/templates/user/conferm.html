@@ -12,7 +12,7 @@
 
     <meta name="description" content="Easy Money Exchanger can be explained as a network of buyers and sellers, who transfer currency between each other or for their own. It is the means by which individuals, and companies convert one currency into another. The Currency Exchange Platform is endlessly appealing, feature-loaded, customized, and possesses the remarkable capability of running on all devices and operating systems.">
     <meta name="keywords" content="exchange platform,currency exchange platform,usd to inr,currency exchnage,easy exchange,money exhcngae,bitcoin to usd,money exchange,crypto currency exchange,crypto currency,Easy Money Exchanger,Vodafone cash">
-    <link rel="shortcut icon" href="../assets/images/logoIcon/blue_bliss/favicon.png" type="image/x-icon">
+<!--    <link rel="shortcut icon" href="../assets/images/logoIcon/blue_bliss/favicon.png" type="image/x-icon">-->
 
 
     <link rel="apple-touch-icon" href="../assets/images/logoIcon/blue_bliss/logo.png">
@@ -22,12 +22,12 @@
 
     <meta itemprop="name" content="Dollar Chsh exchanger - Register">
     <meta itemprop="description" content="Easy Money Exchanger can be explained as a network of buyers and sellers, who transfer currency between each other or for their own. It is the means by which individuals, and companies convert one currency into another. The Currency Exchange Platform is endlessly appealing, feature-loaded, customized, and possesses the remarkable capability of running on all devices and operating systems.">
-    <meta itemprop="image" content="../assets/images/seo/642fb007b7fca1680846855.png">
+<!--    <meta itemprop="image" content="../assets/images/seo/642fb007b7fca1680846855.png">-->
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Easy Money Exchanger">
     <meta property="og:description" content="Easy Money Exchanger can be explained as a network of buyers and sellers, who transfer currency between each other or for their own. It is the means by which individuals, companies convert one currency into another. The Currency Exchange Platform is endlessly appealing, feature-loaded, customized, and possesses the remarkable capability of running on all devices and operating systems.">
-    <meta property="og:image" content="../assets/images/seo/642fb007b7fca1680846855.png" />
+<!--    <meta property="og:image" content="../assets/images/seo/642fb007b7fca1680846855.png" />-->
     <meta property="og:image:type" content="png" />
     <meta property="og:image:width" content="1180" />
     <meta property="og:image:height" content="600" />
@@ -99,6 +99,19 @@
             color: #ff0000;
         }
     </style>
+    <style>
+        /* Style the special text */
+        .special-text {
+            font-weight: bold;
+            color: #281507; /* Choose your desired color */
+        }
+
+        /* Style the smaller copy button */
+        .smaller-button {
+            padding: 0.2rem 0.4rem;
+            font-size: 0.8rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -116,7 +129,7 @@
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="header-top-content">
-                            <span>Dubi</span>
+                            <span>Dubai</span>
                         </div>
                     </div>
                     <div class="header-top-item">
@@ -124,14 +137,14 @@
                             <i class="far fa-envelope"></i>
                         </div>
                         <div class="header-top-content">
-                            <a href="mailto:do-not-reply@viserlab.com">Mazen@gmail.com</a>
+                            <a href="mailto:do-not-reply@viserlab.com">uae70008@gmail.com</a>
                         </div>
                     </div>
                     <div class="header-top-right-item header-top-item">
                         <a href="tel:+20 000000000">
                             <i class="fas fa-phone"></i>
                         </a>
-                        <span>054007617</span>
+                        <span>+20 1066475760</span>
                     </div>
                 </div>
             </div>
@@ -140,41 +153,40 @@
     <div class="header-bottom">
         <div class="container">
             <div class="header-bottom-area">
-                <!--                <div class="logo">-->
-                <!--                    <a href="/index">-->
-                <!--                        <img src="../assets/images/logoIcon/blue_bliss/logo_dark.png">-->
-                <!--                    </a>-->
-                <!--                </div>-->
+                <div class="logo">
+
+                </div>
                 <div class="menu-area">
                     <ul class="menu">
                         <li>
-                            <a href="/index" class="">Home</a>
+                            <a href="/index" class="btn btn--base-outline btn-sm">الرئيسية </a>
                         </li>
+
+
                         <li>
-                            <a href="/index" class="">Affiliation</a>
+                            <a href="/contact" class="btn btn--base-outline btn-sm">تواصل معنا</a>
                         </li>
-                        <li>
-                            <a href="/index" class="">About</a>
-                        </li>
-                        <li>
-                            <a href="/index"class="">Blog</a>
-                        </li>
-                        <li>
-                            <a href="/index" class="">Contact</a>
-                        </li>
-                        <li class="d-lg-none d-block">
-                            <div class="d-flex flex-wrap justify-content-between">
-                                <a href="/login" class="btn btn--base-outline btn-sm">Login</a>
-                                <a href="/register" class="btn btn--base btn-sm ">Register</a>
-                            </div>
-                        </li>
+                        <!--                        <li class="d-lg-none d-block">-->
+
+                        <!--                                    <a href="/login" class="btn btn&#45;&#45;base-outline btn-sm">Login</a>-->
+                        <!--                                    <a href="/register" class="btn btn&#45;&#45;base btn-sm ">Register</a>-->
+                        <!--                        </li>-->
 
                     </ul>
 
                     <div class="header-buttons d-lg-block d-none">
-                        <a href="/login" class="btn btn--base-outline btn-sm">Login</a>
-                        <a href="/register" class="btn btn--base btn-sm ">Register</a>
+                        <a th:unless="${isAuthenticated}" href="/login" class="btn btn--base-outline btn-sm">تسجيل الدخول</a>
+                        <a th:unless="${isAuthenticated}" href="/register" class="btn btn--base-outline btn-sm">مستخدم جديد</a>
+
+                        <div th:if="${isAuthenticated}">
+                            <!--                            <a href="#" class="btn btn&#45;&#45;base-outline btn-sm">Welcome</a>-->
+                            <!--                            <p th:text="'User ID: ' + ${userId}" class="btn btn&#45;&#45;base-outline btn-sm"></p>-->
+                            <p th:text="'اهلاّ: ' + ${username}" class="btn btn--base-outline btn-sm"></p>
+                            <!-- Add more user-specific information as needed -->
+                        </div>
                     </div>
+
+
 
                     <div class="header-bar-area d-lg-none">
                         <div class="header-bar">
@@ -197,18 +209,24 @@
             <div class="col-md-8">
                 <div class="card custom--card">
                     <div class="card-body">
-                        <div class="mb-3"> <br> محفظة بناينس TBTsdZKc3daxpoW8Q3NPqAtxSwCYmUP23Q</div>
+                        <div class="mb-3">
+                            <br>
+                            <button class="btn btn-light copy-icon smaller-button" onclick="copyText()">
+                                <i class="far fa-copy" style="color: black;"></i>
+                            </button>
+                            <span class="special-text">Tron(TRC20)</span> TBTsdZKc3daxpoW8Q3NPqAtxSwCYmUP23Q
+                        </div>
                         <form action="/user/upload-image" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="_token" value="CPYgxmgXqhgthcBBO5CRPv4MccGR6h3PDcHaIWt0">
                             <div class="form-group">
-                                <label for="proof" class="form-label required-field">Proof</label>
+                                <label for="proof" class="form-label required-field">اثبات التحويل</label>
                                 <input type="file" class="form-control form--control" id="proof" name="file" required accept=".jpg, .jpeg, .png"    >
                                 <small class="form-text text-muted">Supported mimes: jpg, jpeg, png</small>
                             </div>
-                            <div class="form-group">
-                                <label for="faucetpay_mail" class="form-label">رقم للتواصل</label>
-                                <input type="number" class="form-control form--control" id="faucetpay_mail" name="faucetpay_mail" value="">
-                            </div>
+<!--                            <div class="form-group">-->
+<!--                                <label for="faucetpay_mail" class="form-label">رقم للتواصل</label>-->
+<!--                                <input type="number" class="form-control form&#45;&#45;control" id="faucetpay_mail" name="faucetpay_mail" value="">-->
+<!--                            </div>-->
                             <div class="form-group">
                                 <button type="submit" class="btn btn--base w-100">Submit</button>
                             </div>
@@ -253,17 +271,17 @@
                     <h5 class="title">Exchange Gateways</h5>
                     <ul>
                         <li>
-                            <a href="../index.html">
+                            <a href="/index">
                                 Vodafone Cash
                             </a>
                         </li>
                         <li>
-                            <a href="../index.html">
+                            <a href="/index">
                                 Teather(TRC20)
                             </a>
                         </li>
                         <li>
-                            <a href="../index.html">
+                            <a href="/index">
                                 Payeer
                             </a>
                         </li>
@@ -292,6 +310,28 @@
             </div>
         </div>
     </div>
+    <script>
+        function copyText() {
+            var textToCopy = "TBTsdZKc3daxpoW8Q3NPqAtxSwCYmUP23Q";
+            var textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+
+            // Enhance user experience
+            var copyButton = document.querySelector('.copy-icon');
+            copyButton.innerHTML = '<i class="far fa-check" style="color: black;"></i> Copied!';
+            copyButton.disabled = true;
+
+            // Reset button text after a short delay
+            setTimeout(function () {
+                copyButton.innerHTML = '<i class="far fa-copy" style="color: black;"></i> ';
+                copyButton.disabled = false;
+            }, 2000);
+        }
+    </script>
     <!--    <div class="footer-bottom section-bg">-->
     <!--        <div class="container d-flex flex-wrap align-items-center justify-content-between">-->
     <!--            <p>Copyright &copy; 2023 All Rights Reserved</p>-->

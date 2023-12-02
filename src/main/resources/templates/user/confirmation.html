@@ -12,10 +12,10 @@
 
     <meta name="description" content="Easy Money Exchanger can be explained as a network of buyers and sellers, who transfer currency between each other or for their own. It is the means by which individuals, and companies convert one currency into another. The Currency Exchange Platform is endlessly appealing, feature-loaded, customized, and possesses the remarkable capability of running on all devices and operating systems.">
     <meta name="keywords" content="exchange platform,currency exchange platform,usd to inr,currency exchnage,easy exchange,money exhcngae,bitcoin to usd,money exchange,crypto currency exchange,crypto currency,Easy Money Exchanger,Vodafone cash">
-    <link rel="shortcut icon" href="../assets/images/logoIcon/blue_bliss/favicon.png" type="image/x-icon">
+<!--    <link rel="shortcut icon" href="../assets/images/logoIcon/blue_bliss/favicon.png" type="image/x-icon">-->
 
 
-    <link rel="apple-touch-icon" href="../assets/images/logoIcon/blue_bliss/logo.png">
+<!--    <link rel="apple-touch-icon" href="../assets/images/logoIcon/blue_bliss/logo.png">-->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Dollar Chsh exchanger - Register">
@@ -63,60 +63,9 @@
             border-color: #0056b3;
         }
     </style>
-    <style>
-        .gap-25px {
-            gap: 25px;
-        }
-    </style>
 
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
 
-        .section-bg {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-top: 20px;
-        }
 
-        .custom--card {
-            border: 1px solid #ced4da;
-            border-radius: 10px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            font-weight: bold;
-        }
-
-        .form--control {
-            width: 100%;
-        }
-
-        .btn--base {
-            background-color: #007bff;
-            color: #ffffff;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .btn--base:hover {
-            background-color: #0056b3;
-        }
-
-        .required-field::after {
-            content: ' *';
-            color: #ff0000;
-        }
-    </style>
 </head>
 
 <body>
@@ -134,7 +83,7 @@
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="header-top-content">
-                            <span>Dubi</span>
+                            <span>Dubai</span>
                         </div>
                     </div>
                     <div class="header-top-item">
@@ -142,14 +91,14 @@
                             <i class="far fa-envelope"></i>
                         </div>
                         <div class="header-top-content">
-                            <a href="mailto:do-not-reply@viserlab.com">Mazen@gmail.com</a>
+                            <a href="mailto:do-not-reply@viserlab.com">uae70008@gmail.com</a>
                         </div>
                     </div>
                     <div class="header-top-right-item header-top-item">
                         <a href="tel:+20 000000000">
                             <i class="fas fa-phone"></i>
                         </a>
-                        <span>054007617</span>
+                        <span>+20 1066475760</span>
                     </div>
                 </div>
             </div>
@@ -158,41 +107,40 @@
     <div class="header-bottom">
         <div class="container">
             <div class="header-bottom-area">
-                <!--                <div class="logo">-->
-                <!--                    <a href="/index">-->
-                <!--                        <img src="../assets/images/logoIcon/blue_bliss/logo_dark.png">-->
-                <!--                    </a>-->
-                <!--                </div>-->
+                <div class="logo">
+
+                </div>
                 <div class="menu-area">
                     <ul class="menu">
                         <li>
-                            <a href="/index" class="">Home</a>
+                            <a href="/index" class="btn btn--base-outline btn-sm">الرئيسية </a>
                         </li>
+
+
                         <li>
-                            <a href="/index" class="">Affiliation</a>
+                            <a href="/contact" class="btn btn--base-outline btn-sm">تواصل معنا</a>
                         </li>
-                        <li>
-                            <a href="/index" class="">About</a>
-                        </li>
-                        <li>
-                            <a href="/index"class="">Blog</a>
-                        </li>
-                        <li>
-                            <a href="/index" class="">Contact</a>
-                        </li>
-                        <li class="d-lg-none d-block">
-                            <div class="d-flex flex-wrap justify-content-between">
-                                <a href="/login" class="btn btn--base-outline btn-sm">Login</a>
-                                <a href="/register" class="btn btn--base btn-sm ">Register</a>
-                            </div>
-                        </li>
+                        <!--                        <li class="d-lg-none d-block">-->
+
+                        <!--                                    <a href="/login" class="btn btn&#45;&#45;base-outline btn-sm">Login</a>-->
+                        <!--                                    <a href="/register" class="btn btn&#45;&#45;base btn-sm ">Register</a>-->
+                        <!--                        </li>-->
 
                     </ul>
 
                     <div class="header-buttons d-lg-block d-none">
-                        <a href="/login" class="btn btn--base-outline btn-sm">Login</a>
-                        <a href="/register" class="btn btn--base btn-sm ">Register</a>
+                        <a th:unless="${isAuthenticated}" href="/login" class="btn btn--base-outline btn-sm">تسجيل الدخول</a>
+                        <a th:unless="${isAuthenticated}" href="/register" class="btn btn--base-outline btn-sm">مستخدم جديد</a>
+
+                        <div th:if="${isAuthenticated}">
+                            <!--                            <a href="#" class="btn btn&#45;&#45;base-outline btn-sm">Welcome</a>-->
+                            <!--                            <p th:text="'User ID: ' + ${userId}" class="btn btn&#45;&#45;base-outline btn-sm"></p>-->
+                            <p th:text="'اهلاّ: ' + ${username}" class="btn btn--base-outline btn-sm"></p>
+                            <!-- Add more user-specific information as needed -->
+                        </div>
                     </div>
+
+
 
                     <div class="header-bar-area d-lg-none">
                         <div class="header-bar">
@@ -210,12 +158,12 @@
 
 
 <div class="container mt-5">
-    <div class="jumbotron text-center">
-         <h1> you number   <h1 class="display-4" th:text="${id}"> </h1></h1>
-        <p class="lead">done request</p>
+    <div class=" text-center">
+         <h1> رقم طلبك   <h1 class="display-4" th:text="${id}"> </h1></h1>
+        <p class="lead">شكرا تم رفع طلبك</p>
         <hr class="my-4">
-        <p>Thank you, your message has been sent.</p>
-        <a class="btn btn-primary btn-lg" href="/index" role="button">Home</a>
+        <p>سيتم تنفيذ طلبك</p>
+        <a class="" href="/index" role="button">الرئيسية</a>
     </div>
 </div>
 <footer class="overflow-hidden">
@@ -228,20 +176,17 @@
                     <!--                            <img src="../assets/images/logoIcon/blue_bliss/logo_dark.png" alt="Dollar Chsh exchanger" title="Dollar Chsh exchanger">-->
                     <!--                        </a>-->
                     <!--                    </div>-->
-                    <p>Easy Money Exchanger - Secure and Suitable Currency Exchange Platform</p>
+                    <p>Dollar Cash Exchanger - Secure and Suitable Currency Exchange Platform</p>
                 </div>
+                <br>
                 <div class="footer-widget widget-link">
                     <h5 class="title">Support</h5>
                     <ul>
                         <li>
                             <a href="/contact">Contact</a>
                         </li>
-                        <li>
-                            <a href="../blog.html">Blog</a>
-                        </li>
-                        <li>
-                            <a href="../login.html">Login</a>
-                        </li>
+
+
                     </ul>
                 </div>
 
@@ -249,17 +194,17 @@
                     <h5 class="title">Exchange Gateways</h5>
                     <ul>
                         <li>
-                            <a href="../index.html">
+                            <a href="/index">
                                 Vodafone Cash
                             </a>
                         </li>
                         <li>
-                            <a href="../index.html">
+                            <a href="/index">
                                 Teather(TRC20)
                             </a>
                         </li>
                         <li>
-                            <a href="../index.html">
+                            <a href="/index">
                                 Payeer
                             </a>
                         </li>
@@ -269,17 +214,17 @@
                     <h5 class="title">Useful Link</h5>
                     <ul>
                         <li>
-                            <a href="../policy/privacy-policy/198.html">
+                            <a href="/index">
                                 Privacy Policy
                             </a>
                         </li>
                         <li>
-                            <a href="../policy/terms-of-service/199.html">
+                            <a href="/index">
                                 Terms of Service
                             </a>
                         </li>
                         <li>
-                            <a href="../policy/refund-policy/200.html">
+                            <a href="/index">
                                 Refund Policy
                             </a>
                         </li>

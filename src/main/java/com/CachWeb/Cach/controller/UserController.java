@@ -5,6 +5,7 @@ import com.CachWeb.Cach.repository.ImageRepository;
 import com.CachWeb.Cach.service.CurrencyService;
 import com.CachWeb.Cach.service.ExchangeRateService;
 import com.CachWeb.Cach.service.ExchangeRequestService;
+import com.CachWeb.Cach.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,12 +14,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private CurrencyService currencyService;
+    @Autowired
+    private UserService userService;
    @Autowired
     private ExchangeRateService exchangeRateService;
     @Autowired
@@ -29,13 +34,31 @@ public class UserController {
 
     /// Preview
     @GetMapping("/preview")
-    public String getPreview(Model model, HttpSession httpSession ) {
+    public String getPreview(Model model, HttpSession httpSession  ,Principal principal) {
         ExchangeRequest exchangeRequest = (ExchangeRequest) httpSession.getAttribute("exchangeRequest");
 
         if (exchangeRequest != null) {
             model.addAttribute("exchangeRequest", exchangeRequest);
         }
         model.addAttribute("wallet", new Wallet());
+
+        boolean isAuthenticated = principal != null;
+        model.addAttribute("isAuthenticated", isAuthenticated);
+
+        // Retrieve user information if authenticated
+        if (isAuthenticated) {
+            String username = principal.getName();
+            // Now you have the username, you can use it to fetch more user details from your user repository
+            // For example, assuming you have a UserRepository
+            User user = userService.findUserByEmail(username);
+            if (user != null) {
+                Long userId = user.getId();
+                String name = user.getName();
+                // Add user information to the model
+                model.addAttribute("userId", userId);
+                model.addAttribute("username", name);
+            }
+        }
 
         return "user/Preview";
     }
@@ -51,36 +74,92 @@ public class UserController {
 
     /// add Prove
        @GetMapping("/conferm")
-       public String conferm(Model model) {
+       public String conferm(Model model,Principal principal) {
         model.addAttribute("image", new Image());
+
+           boolean isAuthenticated = principal != null;
+           model.addAttribute("isAuthenticated", isAuthenticated);
+
+           // Retrieve user information if authenticated
+           if (isAuthenticated) {
+               String username = principal.getName();
+               // Now you have the username, you can use it to fetch more user details from your user repository
+               // For example, assuming you have a UserRepository
+               User user = userService.findUserByEmail(username);
+               if (user != null) {
+                   Long userId = user.getId();
+                   String name = user.getName();
+                   // Add user information to the model
+                   model.addAttribute("userId", userId);
+                   model.addAttribute("username", name);
+               }
+           }
         return "user/conferm";
     }
 
 
 
     @PostMapping("/upload-image")
-    public String handleImageUpload(@ModelAttribute Image image, @RequestParam("file") MultipartFile file ,HttpSession httpSession ,Model model) {
-        if (!file.isEmpty()) {
-            try {
+    public String handleImageUpload(@ModelAttribute Image image, @RequestParam("file") MultipartFile file, HttpSession httpSession) {
+        try {
+            if (!file.isEmpty()) {
                 image.setData(file.getBytes());
                 imageRepository.save(image);
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-        }
-        ExchangeRequest exchangeRequest = (ExchangeRequest)  httpSession.getAttribute("exchangeRequest");
-        exchangeRequest.setImage(image);
-        httpSession.setAttribute("exchangeRequest",exchangeRequest);
 
-        exchangeRequestService.Save(exchangeRequest);
+            ExchangeRequest exchangeRequest = (ExchangeRequest) httpSession.getAttribute("exchangeRequest");
+            exchangeRequest.setImage(image);
+
+
+            {
+
+                    // Save the exchangeRequest
+                    exchangeRequestService.Save(exchangeRequest);
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "errorPage";
+        }
 
         return "redirect:/user/thankyou";
     }
+//     @PostMapping("/upload-image")
+//    public String handleImageUpload(@ModelAttribute Image image, @RequestParam("file") MultipartFile file) {// Validate and process the uploaded image
+//        if (!file.isEmpty()) {
+//            try {
+//                image.setData(file.getBytes());
+//                imageRepository.save(image);
+//            } catch (IOException e) {
+//                e.printStackTrace(); // Handle the exception appropriately
+//            }
+//        }
+//
+//        return "redirect:/";
+//    }
 
     @GetMapping("/thankyou")
-    public String last( HttpSession httpSession  ,Model model){
+    public String last( HttpSession httpSession  ,Model model , Principal principal){
         ExchangeRequest exchangeRequest = (ExchangeRequest)  httpSession.getAttribute("exchangeRequest");
         model.addAttribute("id",exchangeRequest.getId());
+        boolean isAuthenticated = principal != null;
+        model.addAttribute("isAuthenticated", isAuthenticated);
+
+        // Retrieve user information if authenticated
+        if (isAuthenticated) {
+            String username = principal.getName();
+            // Now you have the username, you can use it to fetch more user details from your user repository
+            // For example, assuming you have a UserRepository
+            User user = userService.findUserByEmail(username);
+            if (user != null) {
+                Long userId = user.getId();
+                String name = user.getName();
+                // Add user information to the model
+                model.addAttribute("userId", userId);
+                model.addAttribute("username", name);
+            }
+        }
         return "user/confirmation";
     }
 
@@ -95,17 +174,6 @@ public class UserController {
 
         return "redirect:/user/conferm";
     }
-
-//    @GetMapping("last")
-//    public String finishReq( ){
-//
-//        return "";
-//    }
-//    @PostMapping("/initiate")
-//    public String initiateExchange(@ModelAttribute ExchangeRequest exchangeRequest) {
-//        exchangeRequestService.initiateExchange(exchangeRequest);
-//        return "redirect:/user/form";
-//    }
 
 
 

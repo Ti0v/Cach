@@ -27,13 +27,15 @@ public class ExchangeRequest {
     private BigDecimal sendingAmount;
     private BigDecimal receivingAmount;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "wallet_id")
     private Wallet wallet;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "image_id")
     private Image image;
+
+
     private boolean archived;
 
 

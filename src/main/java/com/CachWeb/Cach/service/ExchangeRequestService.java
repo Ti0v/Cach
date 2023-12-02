@@ -1,4 +1,5 @@
 package com.CachWeb.Cach.service;
+import com.CachWeb.Cach.email.EmailService;
 import com.CachWeb.Cach.entity.Currency;
 
 import com.CachWeb.Cach.entity.ExchangeRequest;
@@ -21,6 +22,8 @@ import java.util.Optional;
 @Service
 public class ExchangeRequestService {
 
+@Autowired
+   private EmailService emailService;
     @Autowired
     private ExchangeRequestRepository exchangeRequestRepository;
 
@@ -70,41 +73,12 @@ public class ExchangeRequestService {
 
         exchangeRequest.setSourceCurrency(sourceCurrency);
         exchangeRequest.setTargetCurrency(targetCurrency);
+       emailService.sendEmail("mmeezzoo212@gmail.com","تم اضافة طلب جديد","اهلا ادمن تم اضافة طلب جديد");
+
 
         exchangeRequestRepository.save(exchangeRequest);
-     //   sendEmailToAdmin(exchangeRequest);
     }
-//    private void sendEmailToAdmin(ExchangeRequest entity) {
-//        // Get the admin email address (replace with the actual admin email address)
-//        String adminEmail = "ti0v85@gmail.com";
-//
-//        // Prepare the email content
-//        String subject = "New Record Saved";
-//        String text = "A new record has been saved with ID: " + entity.getId();
-//
-//        // Send the email
-//        sendEmail(adminEmail, subject, text);
-//    }
-//    private void sendEmail(String to, String subject, String text) {
-//        MimeMessage message = javaMailSender.createMimeMessage();
-//        MimeMessageHelper helper;
-//
-//        try {
-//            helper = new MimeMessageHelper(message, true);
-//            helper.setTo(to);
-//            helper.setSubject(subject);
-//            helper.setText(text);
-//
-//            // Add any attachments or inline elements if needed
-//
-//        } catch (MessagingException e) {
-//            e.printStackTrace();
-//            // Handle the exception appropriately
-//        }
-//
-//        // Send the email
-//        javaMailSender.send(message);
-//    }
+
 
     public void remove(Long id) {
         exchangeRequestRepository.deleteById(id);
@@ -134,11 +108,12 @@ public class ExchangeRequestService {
             exchangeRequest.setReceivingAmount(receivingAmount);
             exchangeRequest.getWallet().setWalletNumber(walletNumber);
 
+
             // Save the updated request
+
             exchangeRequestRepository.save(exchangeRequest);
         } else {
-            // Handle the case where the request with the given ID is not found
-            // You might want to throw an exception or log a message
+
         }
     }
 }

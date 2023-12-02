@@ -4,16 +4,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> Easy money exchanger - Home</title>
+    <title> Dollar Cash exchanger - Home</title>
 
     <meta name="title" Content="Easy money exchanger - Home">
 
-    <meta name="description" content="Easy Money Exchanger can be explained as a network of buyers and sellers, who transfer currency between each other or for their own. It is the means by which individuals, and companies convert one currency into another. The Currency Exchange Platform is endlessly appealing, feature-loaded, customized, and possesses the remarkable capability of running on all devices and operating systems.">
+    <meta name="description" content="Dollar Cash can be explained as a network of buyers and sellers, who transfer currency between each other or for their own. It is the means by which individuals, and companies convert one currency into another. The Currency Exchange Platform is endlessly appealing, feature-loaded, customized, and possesses the remarkable capability of running on all devices and operating systems.">
     <meta name="keywords" content="exchange platform,currency exchange platform,usd to inr,currency exchnage,easy exchange,money exhcngae,bitcoin to usd,money exchange,crypto currency exchange,crypto currency,Easy Money Exchanger,Vodafone cash">
-    <link rel="shortcut icon" href="assets/images/logoIcon/blue_bliss/favicon.png" type="image/x-icon">
+<!--    <link rel="shortcut icon" href="assets/images/logoIcon/blue_bliss/favicon.png" type="image/x-icon">-->
 
 
-    <link rel="apple-touch-icon" href="assets/images/logoIcon/blue_bliss/logo.png">
+<!--    <link rel="apple-touch-icon" href="assets/images/logoIcon/blue_bliss/logo.png">-->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Easy money exchanger - Home">
@@ -53,6 +53,7 @@
             color: #fff !important;
         }
     </style>
+
     <style>
         /* Add this CSS to change the color of all options in the dropdown to white */
         .select-bar,
@@ -101,7 +102,7 @@
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="header-top-content">
-                            <span>90 School Lane DERBY DE14 1BE</span>
+                            <span>Dubai</span>
                         </div>
                     </div>
                     <div class="header-top-item">
@@ -109,14 +110,14 @@
                             <i class="far fa-envelope"></i>
                         </div>
                         <div class="header-top-content">
-                            <a href="mailto:do-not-reply@viserlab.com">do-not-reply@viserlab.com</a>
+                            <a href="mailto:do-not-reply@viserlab.com">uae70008@gmail.com</a>
                         </div>
                     </div>
                     <div class="header-top-right-item header-top-item">
                         <a href="tel:+20 000000000">
                             <i class="fas fa-phone"></i>
                         </a>
-                        <span>+20 000000000</span>
+                        <span>+20 1066475760</span>
                     </div>
                 </div>
             </div>
@@ -131,12 +132,12 @@
                 <div class="menu-area">
                     <ul class="menu">
                         <li>
-                            <a href="/index" class="active">Home </a>
+                            <a href="/index" class="btn btn--base-outline btn-sm">الرئيسية </a>
                         </li>
 
 
                         <li>
-                            <a href="/contact" class="">Contact</a>
+                            <a href="/contact" class="btn btn--base-outline btn-sm">تواصل معنا</a>
                         </li>
 <!--                        <li class="d-lg-none d-block">-->
 
@@ -147,9 +148,15 @@
                     </ul>
 
                     <div class="header-buttons d-lg-block d-none">
-                        <a th:unless="${isAuthenticated}" href="/login" class="btn btn--base-outline btn-sm">Login</a>
-                        <a th:unless="${isAuthenticated}" href="/register" class="btn btn--base btn-sm">Registration</a>
-                        <a th:if="${isAuthenticated}" href="#" class="btn btn--base-outline btn-sm">Welcome</a>
+                        <a th:unless="${isAuthenticated}" href="/login" class="btn btn--base-outline btn-sm">تسجيل الدخول</a>
+                        <a th:unless="${isAuthenticated}" href="/register" class="btn btn--base-outline btn-sm">مستخدم جديد</a>
+
+                        <div th:if="${isAuthenticated}">
+<!--                            <a href="#" class="btn btn&#45;&#45;base-outline btn-sm">Welcome</a>-->
+<!--                            <p th:text="'User ID: ' + ${userId}" class="btn btn&#45;&#45;base-outline btn-sm"></p>-->
+                            <p th:text="'اهلاّ: ' + ${username}" class="btn btn--base-outline btn-sm"></p>
+                            <!-- Add more user-specific information as needed -->
+                        </div>
                     </div>
 
 
@@ -214,16 +221,17 @@
                             <form class="exchange-form" action="user/preview" method="POST" id="exchange-form" th:object="${exchangeRequest}">
                                 <input type="hidden" name="_token" value="F8RuIgbyzUPfoSowVnhRO3K50Z9vL7lr4JV6vGcp">
                                 <div class="form-group w-100">
-                                    <label>You send</label>
+                                    <label>ارسل</label>
                                     <input type="number" step="any" name="sendingAmount" id="sendingAmount" class="form--control" placeholder="0.00" th:field="*{sendingAmount}" required>
                                     <select class="select-bar form--control" name="sourceCurrency" id="sourceCurrency" th:field="*{sourceCurrency}">
                                         <option th:each="exchange : ${exchangeRate}" th:value="${exchange.sourceCurrency.id}" th:text="${exchange.sourceCurrency.name}"></option>
                                     </select>
                                     <span class="limit-alert d-none" id="currency-limit"></span>
                                 </div>
-
+                                <input type="hidden" name="userId" th:value="${userId}" />
+                                <input type="hidden" name="username" th:value="${username}" />
                                 <div class="form-group receiveData w-100">
-                                    <label for="receivingAmount">You get</label>
+                                    <label for="receivingAmount">تستقبل</label>
                                     <input type="number" step="any" name="receivingAmount" class="form--control" id="receivingAmount" readonly placeholder="0.00" th:value="${exchangeRequest.receivingAmount}" th:field="*{receivingAmount}">
                                     <select class="select-bar form--control" name="targetCurrency" id="targetCurrency" th:field="*{targetCurrency}">
 
@@ -231,7 +239,7 @@
                                     <span class="limit-alert d-none" id="currency-limit-received"></span>
                                 </div>
                                 <div class="form-group w-100">
-                                    <button type="submit" class="btn--base btn" id="initiateExchangeBtn"> Exchange</button>
+                                    <button type="submit" class="btn--base btn" id="initiateExchangeBtn"> اطلب</button>
                                 </div>
                             </form>
 
@@ -245,106 +253,106 @@
 
 
 
-    <div class="counter-section padding-top padding-bottom bg-overlay bg_fixed bg_img" data-background="https://easy-money-exchanger.com/assets/images/frontend/counter/63c510b2576091673859250.png">
-        <div class="container">
-            <div class="row justify-content-center mb-30-none">
-                <div class="col-lg-3 col-sm-6">
-                    <div class="counter-item">
-                        <div class="counter-header">
-                            <h4 class="title odometer" data-odometer-final="20">0</h4>
-                            <h4 class="title">K</h4>
-                        </div>
-                        <div class="counter-content">
-                            <h6 class="subtitle">Exchange</h6>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-exchange-alt"></i>                            </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="counter-item">
-                        <div class="counter-header">
-                            <h4 class="title odometer" data-odometer-final="98.4">0</h4>
-                            <h4 class="title">K</h4>
-                        </div>
-                        <div class="counter-content">
-                            <h6 class="subtitle">Customer</h6>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-users"></i>                            </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="counter-item">
-                        <div class="counter-header">
-                            <h4 class="title odometer" data-odometer-final="93">0</h4>
-                            <h4 class="title">K</h4>
-                        </div>
-                        <div class="counter-content">
-                            <h6 class="subtitle">Transaction</h6>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-money-check-alt"></i>                            </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="counter-item">
-                        <div class="counter-header">
-                            <h4 class="title odometer" data-odometer-final="20">0</h4>
-                            <h4 class="title">K</h4>
-                        </div>
-                        <div class="counter-content">
-                            <h6 class="subtitle">Currency</h6>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-money-bill"></i>                            </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--    <div class="counter-section padding-top padding-bottom bg-overlay bg_fixed bg_img" data-background="https://easy-money-exchanger.com/assets/images/frontend/counter/63c510b2576091673859250.png">-->
+<!--        <div class="container">-->
+<!--            <div class="row justify-content-center mb-30-none">-->
+<!--                <div class="col-lg-3 col-sm-6">-->
+<!--                    <div class="counter-item">-->
+<!--                        <div class="counter-header">-->
+<!--                            <h4 class="title odometer" data-odometer-final="20">0</h4>-->
+<!--                            <h4 class="title">K</h4>-->
+<!--                        </div>-->
+<!--                        <div class="counter-content">-->
+<!--                            <h6 class="subtitle">Exchange</h6>-->
+<!--                        </div>-->
+<!--                        <div class="icon">-->
+<!--                            <i class="fas fa-exchange-alt"></i>                            </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-3 col-sm-6">-->
+<!--                    <div class="counter-item">-->
+<!--                        <div class="counter-header">-->
+<!--                            <h4 class="title odometer" data-odometer-final="98.4">0</h4>-->
+<!--                            <h4 class="title">K</h4>-->
+<!--                        </div>-->
+<!--                        <div class="counter-content">-->
+<!--                            <h6 class="subtitle">Customer</h6>-->
+<!--                        </div>-->
+<!--                        <div class="icon">-->
+<!--                            <i class="fas fa-users"></i>                            </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-3 col-sm-6">-->
+<!--                    <div class="counter-item">-->
+<!--                        <div class="counter-header">-->
+<!--                            <h4 class="title odometer" data-odometer-final="93">0</h4>-->
+<!--                            <h4 class="title">K</h4>-->
+<!--                        </div>-->
+<!--                        <div class="counter-content">-->
+<!--                            <h6 class="subtitle">Transaction</h6>-->
+<!--                        </div>-->
+<!--                        <div class="icon">-->
+<!--                            <i class="fas fa-money-check-alt"></i>                            </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-3 col-sm-6">-->
+<!--                    <div class="counter-item">-->
+<!--                        <div class="counter-header">-->
+<!--                            <h4 class="title odometer" data-odometer-final="20">0</h4>-->
+<!--                            <h4 class="title">K</h4>-->
+<!--                        </div>-->
+<!--                        <div class="counter-content">-->
+<!--                            <h6 class="subtitle">Currency</h6>-->
+<!--                        </div>-->
+<!--                        <div class="icon">-->
+<!--                            <i class="fas fa-money-bill"></i>                            </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
-    <section class="how-section padding-top padding-bottom">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-7">
-                    <div class="section-header">
-                        <h3 class="title">How To Work</h3>
-                        <p>Follow the following steps</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center gy-4">
-                <div class="col-xl-4 col-sm-8 col-lg-7">
-                    <div class="how-item">
-                        <div class="how-thumb"> <i class="las la-sync"></i> </div>
-                        <div class="how-content text-center">
-                            <h5 class="title">Pair Your Currency</h5>
-                            <p class="desc">Select the sending ad receving amount with currency</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-sm-8 col-lg-7">
-                    <div class="how-item">
-                        <div class="how-thumb"> <i class="las la-check-circle"></i> </div>
-                        <div class="how-content text-center">
-                            <h5 class="title">Confirm Your Exchange</h5>
-                            <p class="desc">Send the amount need to be sent with valid payment information</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-sm-8 col-lg-7">
-                    <div class="how-item">
-                        <div class="how-thumb"> <i class="fas fa-hand-holding-usd"></i> </div>
-                        <div class="how-content text-center">
-                            <h5 class="title">Get Expected Currency</h5>
-                            <p class="desc">Confirm your payment to get your accepted currency</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!--    <section class="how-section padding-top padding-bottom">-->
+<!--        <div class="container">-->
+<!--            <div class="row justify-content-center">-->
+<!--                <div class="col-lg-7">-->
+<!--                    <div class="section-header">-->
+<!--                        <h3 class="title">How To Work</h3>-->
+<!--                        <p>Follow the following steps</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row justify-content-center gy-4">-->
+<!--                <div class="col-xl-4 col-sm-8 col-lg-7">-->
+<!--                    <div class="how-item">-->
+<!--                        <div class="how-thumb"> <i class="las la-sync"></i> </div>-->
+<!--                        <div class="how-content text-center">-->
+<!--                            <h5 class="title">Pair Your Currency</h5>-->
+<!--                            <p class="desc">Select the sending ad receving amount with currency</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-xl-4 col-sm-8 col-lg-7">-->
+<!--                    <div class="how-item">-->
+<!--                        <div class="how-thumb"> <i class="las la-check-circle"></i> </div>-->
+<!--                        <div class="how-content text-center">-->
+<!--                            <h5 class="title">Confirm Your Exchange</h5>-->
+<!--                            <p class="desc">Send the amount need to be sent with valid payment information</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-xl-4 col-sm-8 col-lg-7">-->
+<!--                    <div class="how-item">-->
+<!--                        <div class="how-thumb"> <i class="fas fa-hand-holding-usd"></i> </div>-->
+<!--                        <div class="how-content text-center">-->
+<!--                            <h5 class="title">Get Expected Currency</h5>-->
+<!--                            <p class="desc">Confirm your payment to get your accepted currency</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
 <!--    <section class="faq-section padding-top padding-bottom">-->
 <!--        <div class="container">-->
 <!--            <div class="row">-->
@@ -535,9 +543,7 @@
                             <li>
                                 <a href="/contact">Contact</a>
                             </li>
-                            <li>
-                                <a href="/index">Blog</a>
-                            </li>
+
                             <li>
                                 <a href="/login">Login</a>
                             </li>

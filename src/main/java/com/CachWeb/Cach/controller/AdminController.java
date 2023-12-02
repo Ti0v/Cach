@@ -1,5 +1,6 @@
 package com.CachWeb.Cach.controller;
 
+import com.CachWeb.Cach.dto.UserDto;
 import com.CachWeb.Cach.entity.Currency;
 import com.CachWeb.Cach.entity.ExchangeRate;
 import com.CachWeb.Cach.entity.ExchangeRequest;
@@ -23,12 +24,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 
-
-
 public class AdminController {
 
     @Autowired
     private CurrencyService currencyService;
+    @Autowired
+    private UserService userService;
     @Autowired
     private ExchangeRateService exchangeRateService;
     @Autowired
@@ -38,7 +39,17 @@ public class AdminController {
 
     @Autowired
     private ImageRepository imageRepository;
+    @GetMapping("/users")
+    public String users(Model model,Principal principal){
+        List<UserDto> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        boolean isAuthenticated = principal != null;
 
+        // Add a flag to the model to indicate whether the user is authenticated
+        model.addAttribute("isAuthenticated", isAuthenticated);
+
+        return "admin/users";
+    }
     @GetMapping({"/list",""})
 
     public String listCurrencies(Model model, HttpServletRequest request, Principal principal) {
@@ -55,7 +66,11 @@ public class AdminController {
 
     //To add Now Currency
     @GetMapping("/add")
-    public String showAddCurrencyForm(Model model) {
+    public String showAddCurrencyForm(Model model, Principal principal) {
+        boolean isAuthenticated = principal != null;
+
+        // Add a flag to the model to indicate whether the user is authenticated
+        model.addAttribute("isAuthenticated", isAuthenticated);
         model.addAttribute("currency", new Currency());
         return "admin/add_currency_form";
     }
@@ -77,7 +92,6 @@ public class AdminController {
         model.addAttribute("rateList", rateList);
 
 
-        // Check if the user is authenticated
         boolean isAuthenticated = principal != null;
 
         // Add a flag to the model to indicate whether the user is authenticated
@@ -108,10 +122,14 @@ public class AdminController {
 
     //To add Exchange
     @GetMapping("/addExchange")
-    public String addExtchange(Model model){
+    public String addExtchange(Model model, Principal principal){
         List<Currency> currencies = currencyService.getAllCurrencies();
         model.addAttribute("currencies",currencies);
         model.addAttribute("exchangrate", new ExchangeRate());
+        boolean isAuthenticated = principal != null;
+
+        // Add a flag to the model to indicate whether the user is authenticated
+        model.addAttribute("isAuthenticated", isAuthenticated);
         return "admin/addExchange";
     }
     @PostMapping("/addExchange")
@@ -129,22 +147,21 @@ public class AdminController {
 
 
     @GetMapping("/exchange-requests")
-    public String showEntities(Model model) {
+    public String showEntities(Model model , Principal principal) {
+        boolean isAuthenticated = principal != null;
+
+        // Add a flag to the model to indicate whether the user is authenticated
+        model.addAttribute("isAuthenticated", isAuthenticated);
         List<ExchangeRequest> exchange = exchangeRequestService.getAllRequestsWithoutArchived();
         model.addAttribute("exchange", exchange);
         return "admin/excahngeRequests";
     }
     @PostMapping("/update-request")
-    public String updateRequest(@RequestParam Long requestId,
+    public String updateRequest(@RequestParam("requestId") Long requestId,
                                 @RequestParam("sendingAmount") BigDecimal sendingAmount,
                                 @RequestParam("receivingAmount") BigDecimal receivingAmount,
                                 @RequestParam("walletNumber") String walletNumber) {
-// Logic to handle the update action
-//        System.out.println("JRERE");
-//        System.out.println(requestId);
-//        System.out.println(walletNumber);
-//        System.out.println(sendingAmount);
-//        System.out.println(receivingAmount);
+
 
         exchangeRequestService.updateRequest(requestId, sendingAmount, receivingAmount, walletNumber);
 
@@ -178,22 +195,20 @@ public class AdminController {
 
 
     @GetMapping("/all-requests-including-archived")
-    public String getAllRequestsWithArchived(Model model) {
+    public String getAllRequestsWithArchived(Model model , Principal principal) {
+        boolean isAuthenticated = principal != null;
+
+        // Add a flag to the model to indicate whether the user is authenticated
+        model.addAttribute("isAuthenticated", isAuthenticated);
         List<ExchangeRequest> allRequests = exchangeRequestService.getAllRequestsIncludingArchived();
         model.addAttribute("allRequests", allRequests);
         return "admin/all_requests_including_archived";
     }
 
-
-
-
-
-
-
     @PostMapping("/archive-request")
     public String archiveRequest(@RequestParam Long requestId) {
         exchangeRequestService.archiveRequest(requestId);
-        return "redirect:/admin/all-requests-including-archived";
+        return "redirect:/admin/exchange-requests";
     }
 
 }

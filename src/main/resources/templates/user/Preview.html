@@ -13,26 +13,26 @@
 
     <meta name="description" content="Easy Money Exchanger can be explained as a network of buyers and sellers, who transfer currency between each other or for their own. It is the means by which individuals, and companies convert one currency into another. The Currency Exchange Platform is endlessly appealing, feature-loaded, customized, and possesses the remarkable capability of running on all devices and operating systems.">
     <meta name="keywords" content="exchange platform,currency exchange platform,usd to inr,currency exchnage,easy exchange,money exhcngae,bitcoin to usd,money exchange,crypto currency exchange,crypto currency,Easy Money Exchanger,Vodafone cash">
-    <link rel="shortcut icon" href="../assets/images/logoIcon/blue_bliss/favicon.png" type="image/x-icon">
+<!--    <link rel="shortcut icon" href="../assets/images/logoIcon/blue_bliss/favicon.png" type="image/x-icon">-->
 
 
-    <link rel="apple-touch-icon" href="../assets/images/logoIcon/blue_bliss/logo.png">
+<!--    <link rel="apple-touch-icon" href="../assets/images/logoIcon/blue_bliss/logo.png">-->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Dollar Chsh exchanger - Register">
 
     <meta itemprop="name" content="Dollar Chsh exchanger - Register">
     <meta itemprop="description" content="Easy Money Exchanger can be explained as a network of buyers and sellers, who transfer currency between each other or for their own. It is the means by which individuals, and companies convert one currency into another. The Currency Exchange Platform is endlessly appealing, feature-loaded, customized, and possesses the remarkable capability of running on all devices and operating systems.">
-    <meta itemprop="image" content="../assets/images/seo/642fb007b7fca1680846855.png">
+<!--    <meta itemprop="image" content="../assets/images/seo/642fb007b7fca1680846855.png">-->
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Easy Money Exchanger">
+<!--    <meta property="og:title" content="Easy Money Exchanger">-->
     <meta property="og:description" content="Easy Money Exchanger can be explained as a network of buyers and sellers, who transfer currency between each other or for their own. It is the means by which individuals, companies convert one currency into another. The Currency Exchange Platform is endlessly appealing, feature-loaded, customized, and possesses the remarkable capability of running on all devices and operating systems.">
-    <meta property="og:image" content="../assets/images/seo/642fb007b7fca1680846855.png" />
+<!--    <meta property="og:image" content="../assets/images/seo/642fb007b7fca1680846855.png" />-->
     <meta property="og:image:type" content="png" />
     <meta property="og:image:width" content="1180" />
     <meta property="og:image:height" content="600" />
-    <meta property="og:url" content="register.html">
+<!--    <meta property="og:url" content="register.html">-->
 
     <meta name="twitter:card" content="summary_large_image">
 
@@ -69,7 +69,7 @@
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="header-top-content">
-                            <span>Dubi</span>
+                            <span>Dubai</span>
                         </div>
                     </div>
                     <div class="header-top-item">
@@ -77,14 +77,12 @@
                             <i class="far fa-envelope"></i>
                         </div>
                         <div class="header-top-content">
-                            <a href="mailto:do-not-reply@viserlab.com">Mazen@gmail.com</a>
+                            <a href="mailto:do-not-reply@viserlab.com">uae70008@gmail.com</a>
                         </div>
                     </div>
                     <div class="header-top-right-item header-top-item">
-                        <a href="tel:+20 000000000">
-                            <i class="fas fa-phone"></i>
-                        </a>
-                        <span>054007617</span>
+                        <a href="tel:+20 000000000"><i class="fas fa-phone"></i></a>
+                        <span>+20 1066475760</span>
                     </div>
                 </div>
             </div>
@@ -93,41 +91,39 @@
     <div class="header-bottom">
         <div class="container">
             <div class="header-bottom-area">
-                <!--                <div class="logo">-->
-                <!--                    <a href="/index">-->
-                <!--                        <img src="../assets/images/logoIcon/blue_bliss/logo_dark.png">-->
-                <!--                    </a>-->
-                <!--                </div>-->
+                <div class="logo">
+
+                </div>
                 <div class="menu-area">
                     <ul class="menu">
                         <li>
-                            <a href="/index" class="">Home</a>
+                            <a href="/index" class="btn btn--base-outline btn-sm">الرئيسية </a>
                         </li>
+
                         <li>
-                            <a href="/index" class="">Affiliation</a>
+                            <a href="/contact" class="btn btn--base-outline btn-sm">تواصل معنا</a>
                         </li>
-                        <li>
-                            <a href="/index" class="">About</a>
-                        </li>
-                        <li>
-                            <a href="/index"class="">Blog</a>
-                        </li>
-                        <li>
-                            <a href="/index" class="">Contact</a>
-                        </li>
-                        <li class="d-lg-none d-block">
-                            <div class="d-flex flex-wrap justify-content-between">
-                                <a href="/login" class="btn btn--base-outline btn-sm">Login</a>
-                                <a href="/register" class="btn btn--base btn-sm ">Register</a>
-                            </div>
-                        </li>
+                        <!--                        <li class="d-lg-none d-block">-->
+
+                        <!--                                    <a href="/login" class="btn btn&#45;&#45;base-outline btn-sm">Login</a>-->
+                        <!--                                    <a href="/register" class="btn btn&#45;&#45;base btn-sm ">Register</a>-->
+                        <!--                        </li>-->
 
                     </ul>
 
                     <div class="header-buttons d-lg-block d-none">
-                        <a href="/login" class="btn btn--base-outline btn-sm">Login</a>
-                        <a href="/register" class="btn btn--base btn-sm ">Register</a>
+                        <a th:unless="${isAuthenticated}" href="/login" class="btn btn--base-outline btn-sm">تسجيل الدخول</a>
+                        <a th:unless="${isAuthenticated}" href="/register" class="btn btn--base-outline btn-sm">مستخدم جديد</a>
+
+                        <div th:if="${isAuthenticated}">
+                            <!--                            <a href="#" class="btn btn&#45;&#45;base-outline btn-sm">Welcome</a>-->
+                            <!--                            <p th:text="'User ID: ' + ${userId}" class="btn btn&#45;&#45;base-outline btn-sm"></p>-->
+                            <p th:text="'اهلاّ: ' + ${username}" class="btn btn--base-outline btn-sm"></p>
+                            <!-- Add more user-specific information as needed -->
+                        </div>
                     </div>
+
+
 
                     <div class="header-bar-area d-lg-none">
                         <div class="header-bar">
@@ -155,7 +151,7 @@
                     <div class="col-12">
                         <div class="card custom--card">
                             <div class="card-body">
-                                <h6 class="text-center">   Confirm <span class="text-muted" th:text="${exchangeRequest.id}"></span></h6>
+                                <h6 class="text-center">   تأكيد الطلب <span class="text-muted" th:text="${exchangeRequest.id}"></span></h6>
                                 <p class="mt-1 fw-bold text-center text--warning">
 
                                 </p>
@@ -171,18 +167,18 @@
                                 <ul class="list-group list-group-flush p-3">
                                     <li class="list-group-item d-flex justify-content-between flex-column flex-wrap border-dotted">
                                         <span class="fw-bold"th:text="${exchangeRequest.getSourceCurrency().name}"></span>
-                                        <small class="text-muted">send</small>
+                                        <small class="text-muted">ترسل</small>
                                     </li>
 
                                     <li class="list-group-item d-flex justify-content-between flex-column flex-wrap border-dotted">
                                         <span class="fw-bold" th:text="${exchangeRequest.sourceCurrency.name}"></span>
-                                        <small class="text-muted">Currncy</small>
+                                        <small class="text-muted">العملة</small>
                                     </li>
 
                                     <li class="list-group-item d-flex justify-content-between flex-column flex-wrap border-dotted">
                                         <span class="fw-bold" th:text="${exchangeRequest.sendingAmount}">
                                         </span>
-                                        <small class="text-muted">amount</small>
+                                        <small class="text-muted">المدفوع</small>
                                     </li>
 
 <!--                                    <li class="list-group-item d-flex justify-content-between flex-column flex-wrap border-dotted">-->
@@ -195,7 +191,7 @@
                                         <span class="fw-bold" th:text="${exchangeRequest.sendingAmount}">
                                             5.00 USDT
                                         </span>
-                                        <small class="text-muted">all</small>
+                                        <small class="text-muted">كامل المبلغ المدفوع</small>
                                     </li>
                                 </ul>
                             </div>
@@ -210,21 +206,21 @@
                                 <ul class="list-group list-group-flush p-3">
                                     <li class="list-group-item d-flex justify-content-between flex-column flex-wrap border-dotted">
                                         <span class="fw-bold" th:text="${exchangeRequest.targetCurrency.name}"></span>
-                                        <small class="text-muted">get</small>
+                                        <small class="text-muted">تستقبل</small>
                                     </li>
 
                                     <li class="list-group-item d-flex justify-content-between flex-column flex-wrap border-dotted">
                                         <span class="fw-bold" th:text="${exchangeRequest.targetCurrency.name}">
 
                                         </span>
-                                        <small class="text-muted">curnncy get</small>
+                                        <small class="text-muted">الى عملة</small>
                                     </li>
 
                                     <li class="list-group-item d-flex justify-content-between flex-column flex-wrap border-dotted">
                                         <span class="fw-bold" th:text="${exchangeRequest.receivingAmount}">
 
                                         </span>
-                                        <small class="text-muted">amount get</small>
+                                        <small class="text-muted">المبلغ المستقبل</small>
                                     </li>
 
 <!--                                    <li class="list-group-item d-flex justify-content-between flex-column flex-wrap border-dotted">-->
@@ -236,7 +232,7 @@
                                     <li class="list-group-item d-flex justify-content-between flex-column flex-wrap border-dotted">
                                         <span class="fw-bold" th:text="${exchangeRequest.receivingAmount}">
                                         </span>
-                                        <small class="text-muted">after
+                                        <small class="text-muted">كامل المبلغ المستقبل
                                         </small>
                                     </li>
                                 </ul>
@@ -250,12 +246,12 @@
                                 <form method="post" action="/user/conferm" enctype="multipart/form-data">
                                     <input type="hidden" name="_token" value="X3i6QCGffQktQl61225PcZ2gsLbI4a0lFqQfBuiO">                                    <div class="form-group">
                                     <label class="form-label required" for="paytm_wallet">
-                                        Wallet Number
+                                        رقم المحفظة
                                      </label>
                                     <input type="number" class="form-control form--control" th:field="${wallet.walletNumber}" required>
                                 </div>
                                     <button class="btn btn--base w-100 confirmationBtn" type="submit">
-                                        request                                 </button>
+                                        ارسل                                 </button>
                                 </form>
                             </div>
                         </div>

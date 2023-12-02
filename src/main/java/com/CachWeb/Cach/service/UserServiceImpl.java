@@ -1,38 +1,35 @@
 package com.CachWeb.Cach.service;
 
 import com.CachWeb.Cach.dto.UserDto;
+import com.CachWeb.Cach.entity.ExchangeRequest;
 import com.CachWeb.Cach.entity.Role;
 import com.CachWeb.Cach.entity.User;
 import com.CachWeb.Cach.repository.RoleRepository;
 import com.CachWeb.Cach.repository.UserRepository;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+    private ExchangeRequestService exchangeRequestService;
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository,
+    public UserServiceImpl(UserRepository userRepository
+            ,ExchangeRequestService exchangeRequestService,
                            RoleRepository roleRepository,
                            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.exchangeRequestService=exchangeRequestService;
     }
 
 
@@ -44,7 +41,8 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setPhoneNumber(userDto.getPhoneNumber());
-        Role role = roleRepository.findByName("ROLE_USER");
+
+        Role role = roleRepository.findByName("ROLE_ADMIN");
 
         if(role == null){
             role = checkRoleExist();
@@ -52,6 +50,9 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
     }
+
+
+
 
     @Override
     public User findUserByEmail(String email) {
@@ -70,6 +71,11 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(String email) {
      User user=  userRepository.findByEmail(email);
      userRepository.delete(user);
+    }
+
+    @Override
+    public void Save(ExchangeRequest exchangeRequest) {
+        exchangeRequestService.Save(exchangeRequest);
     }
 
     private UserDto mapToUserDto(User user){
