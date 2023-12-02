@@ -5,9 +5,7 @@ import com.CachWeb.Cach.entity.ExchangeRate;
 import com.CachWeb.Cach.entity.ExchangeRequest;
 import com.CachWeb.Cach.entity.User;
 import com.CachWeb.Cach.service.ExchangeRateService;
-import com.CachWeb.Cach.service.ExchangeRequestService;
 import com.CachWeb.Cach.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +29,7 @@ public class AuthController {
     }
 
     // handler method to handle home page request
-    @GetMapping("/")
+    @GetMapping({"/","/index"})
 
     public String home(Model model, Principal principal) {
         List<ExchangeRate> exchangeRates = exchangeRateService.getAllExchangeRates();
