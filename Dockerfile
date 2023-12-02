@@ -1,9 +1,11 @@
+# Stage 1: Build Stage
 FROM eclipse-temurin:20-jdk AS build
 COPY . /app
 WORKDIR /app
 RUN ./gradlew bootJar
 RUN mv -f build/libs/*.jar app.jar
 
+# Stage 2: Runtime Stage
 FROM eclipse-temurin:20-jre
 ARG PORT
 ENV PORT=${PORT}
