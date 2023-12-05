@@ -73,7 +73,7 @@ public class ExchangeRequestService {
 
         exchangeRequest.setSourceCurrency(sourceCurrency);
         exchangeRequest.setTargetCurrency(targetCurrency);
-       emailService.sendEmail("uae70008@gmail.com","New Record ","New Record On owr System");
+     //  emailService.sendEmail("uae70008@gmail.com","New Record ","New Record On owr System");
 
 
         exchangeRequestRepository.save(exchangeRequest);
