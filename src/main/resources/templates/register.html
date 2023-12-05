@@ -196,16 +196,13 @@
 <div class="container">
     <div class="row col-md-8 offset-md-2">
         <div class="card">
-
             <br>
-                <h4 class="form__title mb-5">إنشاء حساب حديد</h4>
+            <h4 class="form__title mb-5">إنشاء حساب حديد</h4>
 
-
-            <div th:if="${param.success}">
-                <div class="alert alert-info">
-                    You have successfully registered our app!
-                </div>
+            <div th:if="${param.error}">
+                <div class="alert alert-danger" th:text="${param.error}"></div>
             </div>
+        </div>
             <div class="card-body">
 
                 <form  method="POST" class="verify-gcaptcha" th:action="@{/register/save}" th:object="${user}">
@@ -224,15 +221,14 @@
                                 <input type="text" class="form-control form--control checkUser" name="email"  th:field="*{lastName}" required>
                                 <p th:errors = "*{lastName}" class="text-danger" th:if="${#fields.hasErrors('lastName')}"></p>
 
-
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">البريد الاإبكتروني</label>
-                                <input type="email" class="form-control form--control checkUser" name="email" th:field="*{email}"  required>
-                                <p th:errors = "*{email}" class="text-danger" th:if="${#fields.hasErrors('email')}"></p>
 
+                            <div class="form-group">
+                                <label class="form-label">البريد الإلكتروني</label>
+                                <input type="email" class="form-control form--control checkUser" name="email" th:field="*{email}" required>
+                                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></p>
                             </div>
                         </div>
                         <div class="col-md-6">

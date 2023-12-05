@@ -92,9 +92,7 @@
             .select-bar option {
                 color: white;
             }
-            .select-bar {
-                color: white;
-            }
+
             .select-bar option:hover {
                 background-color: #333;
                 color: white;
@@ -199,7 +197,7 @@
 
         <div class="col-md-8 col-lg-7 col-xl-4">
             <div th:if="${param.error}">
-                <div class="alert alert-danger">Invalid Email or Password</div>
+                <div class="alert alert-danger">خطأ في الرمز السري او البريد الإلكتروني</div>
             </div>
             <div th:if="${param.logout}">
                 <div class="alert alert-success"> You have been logged out.</div>
