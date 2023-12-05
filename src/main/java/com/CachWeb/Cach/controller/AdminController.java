@@ -50,7 +50,7 @@ public class AdminController {
 
         return "admin/users";
     }
-    @GetMapping({"/list",""})
+    @GetMapping("/list")
 
     public String listCurrencies(Model model, HttpServletRequest request, Principal principal) {
         List<Currency> currencies = currencyService.getAllCurrencies();
@@ -161,6 +161,8 @@ public class AdminController {
                                 @RequestParam("sendingAmount") BigDecimal sendingAmount,
                                 @RequestParam("receivingAmount") BigDecimal receivingAmount,
                                 @RequestParam("walletNumber") String walletNumber) {
+        System.out.println(requestId);
+        System.out.println(walletNumber);
 
 
         exchangeRequestService.updateRequest(requestId, sendingAmount, receivingAmount, walletNumber);

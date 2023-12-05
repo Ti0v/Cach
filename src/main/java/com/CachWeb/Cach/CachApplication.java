@@ -18,44 +18,12 @@ import java.math.BigDecimal;
 
 @EnableWebMvc
 @SpringBootApplication
-public class CachApplication implements CommandLineRunner {
-	@Autowired
-	public ExchangeRequestService exchangeRequestService;
+public class CachApplication {
 
-//	@Autowired
-//	private EmailService emailServic;
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(CachApplication.class, args);
 	}
-//	@EventListener(ApplicationReadyEvent.class)
-//	public  void sendEmail(){
-//		emailServic.sendEmail("mmeezzoo212@gmail.com",
-//				"تم اضافة طلب جديد","اهلا ادمن تم اضافة طلب جديد");
-//	}
 
-	@Override
-	public void run(String... args) throws Exception {
-
-//		Wallet wallet = new Wallet();
-//		wallet.setWalletNumber("535353");
-//		Image image = new Image();
-//		Currency c1 = new Currency();
-//		c1.setCode("fff");
-//		c1.setName("ffffff");
-//		for(int i =0;i<10;i++) {
-//
-//
-//
-//			ExchangeRequest exchangeRequest = new ExchangeRequest();
-//			exchangeRequest.setImage(image);
-//			exchangeRequest.setWallet(wallet);
-//			exchangeRequest.setReceivingAmount(BigDecimal.valueOf(90));
-//			exchangeRequest.setSendingAmount(BigDecimal.valueOf(900));
-//			exchangeRequest.setSourceCurrency(c1);
-//			exchangeRequest.setTargetCurrency(c1);
-//			System.out.println("Save  =" +i);
-//			exchangeRequestService.Save(exchangeRequest);
-//		}
-		System.out.println("Finished");
-	}
 }
