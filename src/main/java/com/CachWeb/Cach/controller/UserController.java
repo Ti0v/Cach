@@ -125,19 +125,7 @@ public class UserController {
 
         return "redirect:/user/thankyou";
     }
-//     @PostMapping("/upload-image")
-//    public String handleImageUpload(@ModelAttribute Image image, @RequestParam("file") MultipartFile file) {// Validate and process the uploaded image
-//        if (!file.isEmpty()) {
-//            try {
-//                image.setData(file.getBytes());
-//                imageRepository.save(image);
-//            } catch (IOException e) {
-//                e.printStackTrace(); // Handle the exception appropriately
-//            }
-//        }
-//
-//        return "redirect:/";
-//    }
+
 
     @GetMapping("/thankyou")
     public String last( HttpSession httpSession  ,Model model , Principal principal){
@@ -177,6 +165,18 @@ public class UserController {
 
 
 
-
+//     @PostMapping("/upload-image")
+//    public String handleImageUpload(@ModelAttribute Image image, @RequestParam("file") MultipartFile file) {// Validate and process the uploaded image
+//        if (!file.isEmpty()) {
+//            try {
+//                image.setData(file.getBytes());
+//                imageRepository.save(image);
+//            } catch (IOException e) {
+//                e.printStackTrace(); // Handle the exception appropriately
+//            }
+//        }
+//
+//        return "redirect:/";
+//    }
 }
 

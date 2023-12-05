@@ -215,16 +215,17 @@
                         <form action="/user/upload-image" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="_token" value="CPYgxmgXqhgthcBBO5CRPv4MccGR6h3PDcHaIWt0">
                             <div class="form-group">
+<!--                                accept=".jpg, .jpeg, .png"-->
                                 <label for="proof" class="form-label required-field">اثبات التحويل</label>
-                                <input type="file" class="form-control form--control" id="proof" name="file" required accept=".jpg, .jpeg, .png"    >
-                                <small class="form-text text-muted">Supported mimes: jpg, jpeg, png</small>
+                                <input type="file" class="form-control form--control" id="proof" name="file" required accept="image/*"    >
+                                <small class="form-text text-muted">دعم إمتداد: jpg, jpeg, png</small>
                             </div>
 <!--                            <div class="form-group">-->
 <!--                                <label for="faucetpay_mail" class="form-label">رقم للتواصل</label>-->
 <!--                                <input type="number" class="form-control form&#45;&#45;control" id="faucetpay_mail" name="faucetpay_mail" value="">-->
 <!--                            </div>-->
                             <div class="form-group">
-                                <button type="submit" class="btn btn--base w-100">Submit</button>
+                                <button type="submit" class="btn btn--base w-100">ارسل الطلب</button>
                             </div>
                         </form>
                     </div>
