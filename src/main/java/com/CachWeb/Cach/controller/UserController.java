@@ -121,12 +121,10 @@ public class UserController {
         } catch (IOException e) {
             e.printStackTrace();
 
-            System.out.println("Error uploading image: " + e.getMessage());
+
             return "errorPage";
         }
-        System.out.println("File Name: " + file.getOriginalFilename());
-        System.out.println("File Type: " + file.getContentType());
-        System.out.println("File Size: " + file.getSize());
+
         return "redirect:/user/thankyou";
     }
 

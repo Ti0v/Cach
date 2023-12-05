@@ -240,7 +240,6 @@
                 </div>
                 <div class="modal-body">
                     <img id="modalImage" src="" alt="Modal Image" class="modal-image custom-modal-image">
-                    <!-- Set your preferred width and height -->
                 </div>
             </div>
         </div>
@@ -248,20 +247,20 @@
 
 
     <script>
-        // Define the showImageModal function
-        document.addEventListener('input', function (event) {
-            if (event.target.classList.contains('editable-cell')) {
-                const fieldName = event.target.getAttribute('data-field');
-                document.getElementById(fieldName + 'Input').value = event.target.innerText;
-            }
-        });
-
         $(document).ready(function () {
             // Handle modal trigger using JavaScript
             $('.img-thumbnail').click(function () {
                 var imgSrc = $(this).attr('src');
                 $('#modalImage').attr('src', imgSrc);
                 $('#imageModal').modal('show');
+
+                // Set a fixed size for the modal image
+                $('#modalImage').css({
+                    'width': '100%', // Adjust this to your preferred width
+                    'height': 'auto',
+                    'max-width': '80vw', // Ensure the image doesn't exceed 80% of the viewport width
+                    'max-height': '80vh', // Adjust this to your preferred maximum height
+                });
             });
 
             // Prevent modal from closing on "x" button click
