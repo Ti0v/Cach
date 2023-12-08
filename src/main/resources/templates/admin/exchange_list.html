@@ -132,6 +132,9 @@
                                 <a href="/admin/all-requests-including-archived" class="btn btn--base-outline btn-sm" >جميع الطلبات</a>
                             </li>
                             <li>
+                                <a href="/admin/UserReqests" class="btn btn--base-outline btn-sm" > طلبات المستخدمين</a>
+                            </li>
+                            <li>
                                 <a href="/admin/contacts" class="btn btn--base-outline btn-sm" >طلبات التواصل</a>
                             </li>
                             <li>
@@ -182,15 +185,16 @@
 <div class="container mt-5">
     <h2 class="text-center">التحويل بين العملات</h2>
 
+    <div class="table-responsive">
     <!-- Display exchange list -->
-    <table class="table">
+    <table class="table table-hover">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Source Currency</th>
-            <th>Target Currency</th>
-            <th>Exchange Rate</th>
-            <th>Action</th>
+            <th>رقم العملة</th>
+            <th>العملة الأساسية</th>
+            <th>المعلة المحولة</th>
+            <th>مقدار التحويل</th>
+            <th>العمليات</th>
         </tr>
         </thead>
         <tbody>
@@ -201,14 +205,15 @@
             <td th:text="${exchange.rate}"></td>
             <td>
 <!--                <a class="btn btn-primary" th:href="@{/admin/edit/{id}(id=${exchange.id})}">Edit</a>-->
-                <a class="btn btn-danger" th:href="@{/admin/delete/exchange/{id}(id=${exchange.id})}">Delete</a>
+                <a class="btn btn-danger" th:href="@{/admin/delete/exchange/{id}(id=${exchange.id})}">حذف</a>
             </td>
         </tr>
         </tbody>
     </table>
+    </div>
 
     <!-- Add new exchange form -->
-    <a class="btn btn-success btn-block mt-3" th:href="@{/admin/addExchange}">Add New Exchange</a>
+    <a class="btn btn-success btn-block mt-3" th:href="@{/admin/addExchange}">اضافة تحويل جديد</a>
 </div>
 <br>
 

@@ -135,6 +135,9 @@
                                 <a href="/admin/all-requests-including-archived" class="btn btn--base-outline btn-sm" >جميع الطلبات</a>
                             </li>
                             <li>
+                                <a href="/admin/UserReqests" class="btn btn--base-outline btn-sm" > طلبات المستخدمين</a>
+                            </li>
+                            <li>
                                 <a href="/admin/contacts" class="btn btn--base-outline btn-sm" >طلبات التواصل</a>
                             </li>
                             <li>
@@ -186,25 +189,27 @@
 
 <div class="container mt-5">
 
-    <h2 class="text-center mb-4">Archive</h2>
+    <h2 class="text-center mb-4">الارشيف</h2>
 
-
-    <table class="table table-striped">
+    <div class="table-responsive">
+    <table class="table table-hover">
         <thead >
         <tr>
-            <th>ID</th>
-            <th>Source</th>
-            <th>Target</th>
-            <th>Send</th>
-            <th>Get</th>
-            <th>Wallet</th>
-            <th>Image</th>
-            <th>Actions</th>
+            <th>رقم الطلب</th>
+            <th>المستخدم</th>
+            <th>من عملة</th>
+            <th>الى عملة</th>
+            <th>يرسل</th>
+            <th>يستقبل</th>
+            <th>رقم المحفظة</th>
+            <th>التحويل</th>
+            <th>العمليات</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="request : ${allRequests}">
             <td th:text="${request.id}"></td>
+            <td th:text="${request.getUser().email}"></td>
             <td th:text="${request.sourceCurrency.name}"></td>
             <td th:text="${request.targetCurrency.name}"></td>
             <td th:text="${request.sendingAmount}"></td>
@@ -219,7 +224,7 @@
             <td>
             <form th:action="@{/admin/exchange/delete/{id}(id=${request.id})}" method="post">
                 <input type="hidden" name="_method" value="delete"/>
-                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="submit" class="btn btn-danger">حذف</button>
             </form>
         </td>
             </td>
@@ -227,6 +232,7 @@
         </tr>
         </tbody>
     </table>
+        </div>
 
     <!-- Modal -->
     <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">

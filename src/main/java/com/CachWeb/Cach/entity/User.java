@@ -36,8 +36,7 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String password;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<ExchangeRequest> requests = new ArrayList<>();
+
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
@@ -47,11 +46,10 @@ public class User implements Serializable {
     )
     private List<Role> roles = new ArrayList<>();
 
-    // Constructors, getters, setters...
 
-//    public void addRequest(ExchangeRequest exchangeRequest) {
-//        this.requests.add(exchangeRequest);
-//        exchangeRequest.setUser(this);
-//    }
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<ExchangeRequest> exchangeRequests = new ArrayList<>();
+
+
 }
 

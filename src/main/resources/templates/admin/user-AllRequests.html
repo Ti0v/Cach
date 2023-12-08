@@ -8,10 +8,10 @@
 
     <meta name="title" Content="Dollar Cash exchanger - Home">
 
-    <link rel="shortcut icon" href="../assets/images/logoIcon/blue_bliss/lggg.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/images/logoIcon/blue_bliss/lggg.png" type="image/x-icon">
 
 
-    <link rel="apple-touch-icon" href="../assets/images/logoIcon/blue_bliss/lggg.png">
+    <link rel="apple-touch-icon" href="/assets/images/logoIcon/blue_bliss/lggg.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
@@ -45,16 +45,16 @@
 
 
 
-        <link rel="stylesheet" href="../assets/global/css/bootstrap.min.css" >
-        <link rel="stylesheet" href="../assets/global/css/all.min.css" >
-        <link rel="stylesheet" href="../assets/global/css/line-awesome.min.css">
-        <link rel="stylesheet" href="../assets/templates/blue_bliss/css/animate.css">
-        <link rel="stylesheet" href="../assets/templates/blue_bliss/css/odometer.css">
-        <link rel="stylesheet" href="../assets/templates/blue_bliss/css/nice-select.css">
-        <link rel="stylesheet" href="../assets/templates/blue_bliss/css/swiper.min.css">
-        <link rel="stylesheet" href="../assets/templates/blue_bliss/css/main.css">
-        <link rel="stylesheet" href="../assets/templates/blue_bliss/css/custom.css">
-        <link rel="stylesheet" href="../assets/templates/blue_bliss/css/colorc568.css?color=040451">
+        <link rel="stylesheet" href="/assets/global/css/bootstrap.min.css" >
+        <link rel="stylesheet" href="/assets/global/css/all.min.css" >
+        <link rel="stylesheet" href="/assets/global/css/line-awesome.min.css">
+        <link rel="stylesheet" href="/assets/templates/blue_bliss/css/animate.css">
+        <link rel="stylesheet" href="/assets/templates/blue_bliss/css/odometer.css">
+        <link rel="stylesheet" href="/assets/templates/blue_bliss/css/nice-select.css">
+        <link rel="stylesheet" href="/assets/templates/blue_bliss/css/swiper.min.css">
+        <link rel="stylesheet" href="/assets/templates/blue_bliss/css/main.css">
+        <link rel="stylesheet" href="/assets/templates/blue_bliss/css/custom.css">
+        <link rel="stylesheet" href="/assets/templates/blue_bliss/css/colorc568.css?color=040451">
 
         <!-- Include Bootstrap JS and Popper.js (optional) -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -118,7 +118,7 @@
                 <div class="header-bottom-area">
                     <div class="logo">
                         <a href="/index">
-                            <img src="../assets/images/logoIcon/blue_bliss/lggg.png" >
+                            <img src="/assets/images/logoIcon/blue_bliss/lggg.png" >
                         </a>
                     </div>
                     <div class="menu-area">
@@ -189,144 +189,142 @@
             </div>
         </div>
     </header>
-<body class="bg-light">
+    <body class="bg-light">
 
 
-<div class="container mt-5">
+    <div class="container mt-5">
 
-    <h2 class="text-center mb-4">احدث الطلبات</h2>
+        <h2 class="text-center mb-4">طلبات المستخدم </h2>
+        <h3  class="text-center mb-4" th:text="${requests[0].getUser().email}"></h3>
+        <!-- Your existing table structure -->
+        <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>رقم الطلب</th>
+                <th>من عملة</th>
+                <th>الى عملة</th>
+                <th>يرسل</th>
+                <th>يستقبل</th>
+                <th>رقم المحفظة</th>
+                <th>الايصال</th>
 
-    <div class="table-responsive">
-    <!-- Your existing table structure -->
-    <table class="table table-hover ">
-        <thead>
-        <tr>
-            <th>رقم الطلب</th>
-            <th>المستخدم</th>
-            <th>من عملة</th>
-            <th>الى عملة</th>
-            <th>يرسل</th>
-            <th>يستقبل</th>
-            <th>رقم المحفظة</th>
-            <th>التحويل</th>
-            <th>تأكيد الطلب</th>
-            <th>تعديل الطلب</th>
+<!--                <th>تأكيد الطلب</th>-->
+<!--                <th>تعديل الطلب</th>-->
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="entity : ${exchange}" id="row-{{entity.id}}">
-            <td th:text="${entity.id}"></td>
-            <td th:text="${entity.user.email}"></td>
-            <td th:text="${entity.sourceCurrency.name}"></td>
-            <td th:text="${entity.targetCurrency.name}"></td>
-            <td class="editable-cell" data-field="sendingAmount" contenteditable="true" th:text="${entity.sendingAmount}"></td>
-            <td class="editable-cell" data-field="receivingAmount" contenteditable="true" th:text="${entity.receivingAmount}"></td>
-            <td class="editable-cell" data-field="walletNumber" contenteditable="true" th:text="${entity.wallet.walletNumber}"></td>
-            <td>
-                <div class="img-container" th:if="${entity.image != null}">
-                    <img class="img-thumbnail custom-image" th:src="@{'/admin/images/' + ${entity.image.id}}" alt="Image" data-toggle="modal" data-target="#imageModal" onclick="showImageModal('@{'/admin/images/' + ${entity.image.id}}')">
-                </div>
-            </td>
-            <td>
-                <form th:action="@{/admin/archive-request}" method="post">
-                    <input type="hidden" name="requestId" th:value="${entity.id}">
-                    <button type="submit" class="btn btn-success">تأكيد</button>
-                </form>
-            </td>
-            <td>
-                <form th:action="@{/admin/update-request}" method="post" >
-                    <input type="hidden" name="requestId" id="requestId"th:value="${entity.id}">
-<!--                    <div class="editable-cell" data-field="sendingAmount" contenteditable="true" th:text="${entity.sendingAmount}"></div>-->
-<!--                    <div class="editable-cell" data-field="receivingAmount" contenteditable="true" th:text="${entity.receivingAmount}"></div>-->
-<!--                    <div class="editable-cell" data-field="walletNumber" contenteditable="true" th:text="${entity.wallet.walletNumber}"></div>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="entity : ${requests}" id="row-{{entity.id}}">
+                <td th:text="${entity.id}"></td>
+                <td th:text="${entity.sourceCurrency.name}"></td>
+                <td th:text="${entity.targetCurrency.name}"></td>
+                <td th:text="${entity.sendingAmount}"></td>
+                <td th:text="${entity.receivingAmount}"></td>
+                <td th:text="${entity.wallet.walletNumber}"></td>
+                <td>
+                    <div class="img-container" th:if="${entity.image != null}">
+                        <img class="img-thumbnail custom-image" th:src="@{'/admin/images/' + ${entity.image.id}}" alt="Image" data-toggle="modal" data-target="#imageModal" onclick="showImageModal('@{'/admin/images/' + ${entity.image.id}}')">
+                    </div>
+                </td>
+<!--                <td>-->
+<!--                    <form th:action="@{/admin/archive-request}" method="post">-->
+<!--                        <input type="hidden" name="requestId" th:value="${entity.id}">-->
+<!--                        <button type="submit" class="btn btn-warning">تأكيد</button>-->
+<!--                    </form>-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                    <form th:action="@{/admin/update-request}" method="post" >-->
+<!--                        <input type="hidden" name="requestId" id="requestId"th:value="${entity.id}">-->
+<!--    -->
 
 
-                    <input type="text" name="sendingAmount" id="sendingAmountInput" th:value="${entity.sendingAmount}">
-                    <input type="text" name="receivingAmount" id="receivingAmountInput" th:value="${entity.receivingAmount}">
-                    <input type="text" name="walletNumber" id="walletNumberInput" th:value="${entity.wallet.walletNumber}">
+<!--                        <input type="text" name="sendingAmount" id="sendingAmountInput" th:value="${entity.sendingAmount}">-->
+<!--                        <input type="text" name="receivingAmount" id="receivingAmountInput" th:value="${entity.receivingAmount}">-->
+<!--                        <input type="text" name="walletNumber" id="walletNumberInput" th:value="${entity.wallet.walletNumber}">-->
 
 
-                    <button type="submit" class="btn btn-warning">تعديل</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<!--                        <button type="submit" class="btn btn-success">تعديل</button>-->
+<!--                    </form>-->
+<!--                </td>-->
+            </tr>
+            </tbody>
+        </table>
+            </div>
 
 
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="imageModalLabel">الصورة مكبرة</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <img id="modalImage" src="" alt="Modal Image" class="modal-image custom-modal-image">
+        <!-- Modal -->
+        <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="imageModalLabel">الصورة مكبرة</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="modalImage" src="" alt="Modal Image" class="modal-image custom-modal-image">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <script>
-        $(document).ready(function () {
-            // Handle modal trigger using JavaScript
-            $('.img-thumbnail').click(function () {
-                var imgSrc = $(this).attr('src');
-                $('#modalImage').attr('src', imgSrc);
-                $('#imageModal').modal('show');
+        <script>
+            $(document).ready(function () {
+                // Handle modal trigger using JavaScript
+                $('.img-thumbnail').click(function () {
+                    var imgSrc = $(this).attr('src');
+                    $('#modalImage').attr('src', imgSrc);
+                    $('#imageModal').modal('show');
 
-                // Set a fixed size for the modal image
-                $('#modalImage').css({
-                    'width': '100%', // Adjust this to your preferred width
-                    'height': 'auto',
-                    'max-width': '80vw', // Ensure the image doesn't exceed 80% of the viewport width
-                    'max-height': '80vh', // Adjust this to your preferred maximum height
+                    // Set a fixed size for the modal image
+                    $('#modalImage').css({
+                        'width': '100%', // Adjust this to your preferred width
+                        'height': 'auto',
+                        'max-width': '80vw', // Ensure the image doesn't exceed 80% of the viewport width
+                        'max-height': '80vh', // Adjust this to your preferred maximum height
+                    });
+                });
+
+                // Prevent modal from closing on "x" button click
+                $('#imageModal').on('click', '.close', function (e) {
+                    e.stopPropagation(); // Prevent the default behavior of the close button
+                    $('#modalImage').attr('src', ''); // Clear the image source when the modal is closed
+                });
+
+                // Prevent modal from closing on overlay click
+                $('#imageModal').on('click', function (e) {
+                    if ($(e.target).hasClass('modal')) {
+                        e.stopPropagation(); // Prevent the default behavior of the overlay click
+                    }
+                });
+
+                // Handle modal close events
+                $('#imageModal').on('hidden.bs.modal', function () {
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
                 });
             });
+        </script>
 
-            // Prevent modal from closing on "x" button click
-            $('#imageModal').on('click', '.close', function (e) {
-                e.stopPropagation(); // Prevent the default behavior of the close button
-                $('#modalImage').attr('src', ''); // Clear the image source when the modal is closed
-            });
+        <script src="/assets/global/js/jquery-3.6.0.min.js"></script>
+        <script src="/assets/global/js/bootstrap.bundle.min.js"></script>
 
-            // Prevent modal from closing on overlay click
-            $('#imageModal').on('click', function (e) {
-                if ($(e.target).hasClass('modal')) {
-                    e.stopPropagation(); // Prevent the default behavior of the overlay click
-                }
-            });
-
-            // Handle modal close events
-            $('#imageModal').on('hidden.bs.modal', function () {
-                $('body').removeClass('modal-open');
-                $('.modal-backdrop').remove();
-            });
-        });
-    </script>
-
-<script src="../assets/global/js/jquery-3.6.0.min.js"></script>
-<script src="../assets/global/js/bootstrap.bundle.min.js"></script>
-
-<script src="../assets/templates/blue_bliss/js/modernizr-3.6.0.min.js"></script>
-<script src="../assets/templates/blue_bliss/js/plugins.js"></script>
-<script src="../assets/templates/blue_bliss/js/swiper.min.js"></script>
-<script src="../assets/templates/blue_bliss/js/wow.min.js"></script>
-<script src="../assets/templates/blue_bliss/js/odometer.min.js"></script>
-<script src="../assets/templates/blue_bliss/js/viewport.jquery.js"></script>
-<script src="../assets/templates/blue_bliss/js/nice-select.js"></script>
-<script src="../assets/templates/blue_bliss/js/main.js"></script>
+        <script src="/assets/templates/blue_bliss/js/modernizr-3.6.0.min.js"></script>
+        <script src="/assets/templates/blue_bliss/js/plugins.js"></script>
+        <script src="/assets/templates/blue_bliss/js/swiper.min.js"></script>
+        <script src="/assets/templates/blue_bliss/js/wow.min.js"></script>
+        <script src="/assets/templates/blue_bliss/js/odometer.min.js"></script>
+        <script src="/assets/templates/blue_bliss/js/viewport.jquery.js"></script>
+        <script src="/assets/templates/blue_bliss/js/nice-select.js"></script>
+        <script src="/assets/templates/blue_bliss/js/main.js"></script>
 
 
-</body>
 
-</html>
+     </body>
+
+    </html>

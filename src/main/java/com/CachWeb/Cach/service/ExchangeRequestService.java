@@ -57,7 +57,13 @@ public class ExchangeRequestService {
         return exchangeRequestRepository.findAllByArchived(false);
     }
 
+//    public List<ExchangeRequest> getRequestsForUser() {
+//        return exchangeRequestRepository.findAllByUser_EmailIsNotNull();
+//    }
 
+    public List<Object[]> userRequestCounts() {
+          return   exchangeRequestRepository.findUsersAndRequestCounts();
+    }
     public BigDecimal calculateReceivingAmount(BigDecimal sendingAmount, BigDecimal exchangeRate) {
 
         if (sendingAmount == null || exchangeRate == null) {
@@ -73,9 +79,9 @@ public class ExchangeRequestService {
 
         exchangeRequest.setSourceCurrency(sourceCurrency);
         exchangeRequest.setTargetCurrency(targetCurrency);
-     //  emailService.sendEmail("uae70008@gmail.com","New Record ","New Record On owr System");
+       emailService.sendEmail("mmeezzoo212@gmail.com","New Record ","New Record On owr System");
 
-
+        //uae70008@gmail.com
         exchangeRequestRepository.save(exchangeRequest);
     }
 
@@ -85,11 +91,13 @@ public class ExchangeRequestService {
     }
 
 
-
+    @Transactional
     public void archiveRequest(Long requestId) {
         Optional<ExchangeRequest> optionalRequest = exchangeRequestRepository.findById(requestId);
         optionalRequest.ifPresent(request -> {
             request.setArchived(true);
+            emailService.sendEmail(optionalRequest.get().getUser().getEmail(),"Your Reqests Has been Conform ","New Record On owr System");
+
             exchangeRequestRepository.save(request);
         });
     }

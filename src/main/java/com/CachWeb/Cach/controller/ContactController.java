@@ -18,7 +18,7 @@ import java.security.Principal;
 @RequestMapping("/")
 public class ContactController {
     @Autowired
-  private ContactService service;
+     private ContactService service;
     @Autowired
     private UserService userService;
     @GetMapping("/contact")
@@ -26,23 +26,7 @@ public class ContactController {
        ContactForm contactForm = new ContactForm();
 
         model.addAttribute("contactForm", contactForm);
-        boolean isAuthenticated = principal != null;
-        model.addAttribute("isAuthenticated", isAuthenticated);
-
-        // Retrieve user information if authenticated
-        if (isAuthenticated) {
-            String username = principal.getName();
-            // Now you have the username, you can use it to fetch more user details from your user repository
-            // For example, assuming you have a UserRepository
-            User user = userService.findUserByEmail(username);
-            if (user != null) {
-                Long userId = user.getId();
-                String name = user.getName();
-                // Add user information to the model
-                model.addAttribute("userId", userId);
-                model.addAttribute("username", name);
-            }
-        }
+        AuthController.test(model, principal, userService);
         return "user/contact";
     }
 

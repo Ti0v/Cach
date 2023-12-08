@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,6 +51,17 @@ public class UserServiceImpl implements UserService {
         }
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
+    }
+    @Override
+    public List<ExchangeRequest> getExchangeRequestsForUser(String email) {
+        Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(email));
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return user.getExchangeRequests();
+        } else {
+            // Handle user not found
+            return Collections.emptyList();
+        }
     }
 
 

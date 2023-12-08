@@ -44,23 +44,7 @@ public class AuthController {
         model.addAttribute("exchangeRequest", exchangeRequest);
 
         // Check if the user is authenticated
-        boolean isAuthenticated = principal != null;
-        model.addAttribute("isAuthenticated", isAuthenticated);
-
-        // Retrieve user information if authenticated
-        if (isAuthenticated) {
-            String username = principal.getName();
-            // Now you have the username, you can use it to fetch more user details from your user repository
-            // For example, assuming you have a UserRepository
-            User user = userService.findUserByEmail(username);
-            if (user != null) {
-                Long userId = user.getId();
-                String name = user.getName();
-                // Add user information to the model
-                model.addAttribute("userId", userId);
-                model.addAttribute("username", name);
-            }
-        }
+        isAuthontecated(model, principal);
 
         return "index";
     }
@@ -70,23 +54,7 @@ public class AuthController {
     public String login(Model model , Principal principal){
 
 
-        boolean isAuthenticated = principal != null;
-        model.addAttribute("isAuthenticated", isAuthenticated);
-
-        // Retrieve user information if authenticated
-        if (isAuthenticated) {
-            String username = principal.getName();
-            // Now you have the username, you can use it to fetch more user details from your user repository
-            // For example, assuming you have a UserRepository
-            User user = userService.findUserByEmail(username);
-            if (user != null) {
-                Long userId = user.getId();
-                String name = user.getName();
-                // Add user information to the model
-                model.addAttribute("userId", userId);
-                model.addAttribute("username", name);
-            }
-        }
+        isAuthontecated(model, principal);
         return "login";
     }
 
@@ -97,6 +65,17 @@ public class AuthController {
         UserDto user = new UserDto();
         model.addAttribute("user", user);
 
+        isAuthontecated(model, principal);
+
+
+        return "register";
+    }
+
+    private void isAuthontecated(Model model, Principal principal) {
+        test(model, principal, userService);
+    }
+
+    static void test(Model model, Principal principal, UserService userService) {
         boolean isAuthenticated = principal != null;
         model.addAttribute("isAuthenticated", isAuthenticated);
 
@@ -111,9 +90,6 @@ public class AuthController {
                 model.addAttribute("username", name);
             }
         }
-
-
-        return "register";
     }
 
     @PostMapping("/register/save")
@@ -151,7 +127,7 @@ public class AuthController {
     public String deleteUser(@PathVariable("email") String email) {
         // Your logic to delete the user
         userService.deleteUser(email);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
 }

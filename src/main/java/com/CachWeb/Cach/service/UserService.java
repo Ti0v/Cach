@@ -16,4 +16,6 @@ public interface UserService {
     void deleteUser(String email);
     void Save(ExchangeRequest exchangeRequest);
 
+     List<ExchangeRequest> getExchangeRequestsForUser(String email);
+
 }

@@ -41,7 +41,7 @@ public class AdminController {
     private ImageRepository imageRepository;
     @GetMapping("/users")
     public String users(Model model,Principal principal){
-        List<UserDto> users = userService.findAllUsers();
+          List<UserDto> users = userService.findAllUsers();
         model.addAttribute("users", users);
         boolean isAuthenticated = principal != null;
 
@@ -145,7 +145,6 @@ public class AdminController {
 
 
 
-
     @GetMapping("/exchange-requests")
     public String showEntities(Model model , Principal principal) {
         boolean isAuthenticated = principal != null;
@@ -161,9 +160,6 @@ public class AdminController {
                                 @RequestParam("sendingAmount") BigDecimal sendingAmount,
                                 @RequestParam("receivingAmount") BigDecimal receivingAmount,
                                 @RequestParam("walletNumber") String walletNumber) {
-        System.out.println(requestId);
-        System.out.println(walletNumber);
-
 
         exchangeRequestService.updateRequest(requestId, sendingAmount, receivingAmount, walletNumber);
 
@@ -192,10 +188,6 @@ public class AdminController {
     }
 
 
-
-
-
-
     @GetMapping("/all-requests-including-archived")
     public String getAllRequestsWithArchived(Model model , Principal principal) {
         boolean isAuthenticated = principal != null;
@@ -211,6 +203,28 @@ public class AdminController {
     public String archiveRequest(@RequestParam Long requestId) {
         exchangeRequestService.archiveRequest(requestId);
         return "redirect:/admin/exchange-requests";
+    }
+
+    @GetMapping("/UserReqests")
+    public String getUserAndRequests(Model model , Principal principal) {
+        boolean isAuthenticated = principal != null;
+
+        // Add a flag to the model to indicate whether the user is authenticated
+        model.addAttribute("isAuthenticated", isAuthenticated);
+        model.addAttribute("requests",  exchangeRequestService.userRequestCounts());
+
+        return "admin/user-Reqests";
+    }
+
+    @GetMapping("/requests-forUser/{email}")
+    public String requestsforUser(@PathVariable("email") String email, Model model, Principal principal) {
+        boolean isAuthenticated = principal != null;
+
+        // Add a flag to the model to indicate whether the user is authenticated
+        model.addAttribute("isAuthenticated", isAuthenticated);
+
+        model.addAttribute("requests",  userService.getExchangeRequestsForUser(email));
+        return "admin/user-AllRequests";
     }
 
 }

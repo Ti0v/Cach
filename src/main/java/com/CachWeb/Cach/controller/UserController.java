@@ -42,23 +42,7 @@ public class UserController {
         }
         model.addAttribute("wallet", new Wallet());
 
-        boolean isAuthenticated = principal != null;
-        model.addAttribute("isAuthenticated", isAuthenticated);
-
-        // Retrieve user information if authenticated
-        if (isAuthenticated) {
-            String username = principal.getName();
-            // Now you have the username, you can use it to fetch more user details from your user repository
-            // For example, assuming you have a UserRepository
-            User user = userService.findUserByEmail(username);
-            if (user != null) {
-                Long userId = user.getId();
-                String name = user.getName();
-                // Add user information to the model
-                model.addAttribute("userId", userId);
-                model.addAttribute("username", name);
-            }
-        }
+        AuthController.test(model, principal, userService);
 
         return "user/Preview";
     }
@@ -77,30 +61,14 @@ public class UserController {
        public String conferm(Model model,Principal principal) {
         model.addAttribute("image", new Image());
 
-           boolean isAuthenticated = principal != null;
-           model.addAttribute("isAuthenticated", isAuthenticated);
-
-           // Retrieve user information if authenticated
-           if (isAuthenticated) {
-               String username = principal.getName();
-               // Now you have the username, you can use it to fetch more user details from your user repository
-               // For example, assuming you have a UserRepository
-               User user = userService.findUserByEmail(username);
-               if (user != null) {
-                   Long userId = user.getId();
-                   String name = user.getName();
-                   // Add user information to the model
-                   model.addAttribute("userId", userId);
-                   model.addAttribute("username", name);
-               }
-           }
-        return "user/conferm";
+           AuthController.test(model, principal, userService);
+           return "user/conferm";
     }
 
 
 
     @PostMapping("/upload-image")
-    public String handleImageUpload(@ModelAttribute Image image, @RequestParam("file") MultipartFile file, HttpSession httpSession) {
+    public String handleImageUpload(@ModelAttribute Image image, @RequestParam("file") MultipartFile file, HttpSession httpSession,Principal principal) {
         try {
             if (!file.isEmpty()) {
                 image.setData(file.getBytes());
@@ -110,22 +78,26 @@ public class UserController {
             ExchangeRequest exchangeRequest = (ExchangeRequest) httpSession.getAttribute("exchangeRequest");
             exchangeRequest.setImage(image);
 
-
-            {
-
-                    // Save the exchangeRequest
-                    exchangeRequestService.Save(exchangeRequest);
-
+            // Save the exchangeRequest
+            boolean isAuthenticated = principal != null;
+            if (isAuthenticated) {
+                String username = principal.getName();
+                // Now you have the username, you can use it to fetch more user details from your user repository
+                // For example, assuming you have a UserRepository
+                User user = userService.findUserByEmail(username);
+                exchangeRequest.setUser(user);
             }
 
+            exchangeRequestService.Save(exchangeRequest);
+
+            // Redirect after successful upload
+            return "redirect:/user/thankyou";
         } catch (IOException e) {
-            e.printStackTrace();
+            // Log the exception using a logging framework
 
-
-            return "errorPage";
+            // Redirect to an error page
+            return "index";
         }
-
-        return "redirect:/user/thankyou";
     }
 
 
@@ -133,23 +105,7 @@ public class UserController {
     public String last( HttpSession httpSession  ,Model model , Principal principal){
         ExchangeRequest exchangeRequest = (ExchangeRequest)  httpSession.getAttribute("exchangeRequest");
         model.addAttribute("id",exchangeRequest.getId());
-        boolean isAuthenticated = principal != null;
-        model.addAttribute("isAuthenticated", isAuthenticated);
-
-        // Retrieve user information if authenticated
-        if (isAuthenticated) {
-            String username = principal.getName();
-            // Now you have the username, you can use it to fetch more user details from your user repository
-            // For example, assuming you have a UserRepository
-            User user = userService.findUserByEmail(username);
-            if (user != null) {
-                Long userId = user.getId();
-                String name = user.getName();
-                // Add user information to the model
-                model.addAttribute("userId", userId);
-                model.addAttribute("username", name);
-            }
-        }
+        AuthController.test(model, principal, userService);
         return "user/confirmation";
     }
 

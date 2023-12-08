@@ -132,6 +132,9 @@
                                 <a href="/admin/all-requests-including-archived" class="btn btn--base-outline btn-sm" >جميع الطلبات</a>
                             </li>
                             <li>
+                                <a href="/admin/UserReqests" class="btn btn--base-outline btn-sm" > طلبات المستخدمين</a>
+                            </li>
+                            <li>
                                 <a href="/admin/contacts" class="btn btn--base-outline btn-sm" >طلبات التواصل</a>
                             </li>
                             <li>
@@ -182,17 +185,18 @@
 <div class="container table-container">
     <div class="row">
         <div class="col-md-10">
-            <h2 class="my-4">Users</h2>
+            <h2 class="my-4">المستخدمين</h2>
         </div>
     </div>
-    <table class="table table-bordered table-hover">
-        <thead class="table-dark">
+    <div class="table-responsive">
+    <table class="table table-hover ">
+        <thead class="">
         <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Action</th>
+            <th>الاسم الاول</th>
+            <th>الاسم الاخير</th>
+            <th>البريد الالكتروني</th>
+            <th>رقم الهاتف</th>
+            <th>العمليات</th>
         </tr>
         </thead>
         <tbody>
@@ -201,14 +205,17 @@
             <td th:text="${user.lastName}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.phoneNumber}"></td>
+            <td th:text="${user.phoneNumber}"></td>
+            <td th:text="${user.phoneNumber}"></td>
             <td>
                 <form th:action="@{'/deleteUser/' + ${user.getEmail()}}" method="post">
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger">حذف</button>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
+        </div>
 </div>
     <script src="../assets/global/js/jquery-3.6.0.min.js"></script>
     <script src="../assets/global/js/bootstrap.bundle.min.js"></script>

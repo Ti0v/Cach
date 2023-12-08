@@ -189,144 +189,59 @@
             </div>
         </div>
     </header>
-<body class="bg-light">
+    <body class="bg-light">
 
 
-<div class="container mt-5">
+    <div class="container mt-5">
 
-    <h2 class="text-center mb-4">احدث الطلبات</h2>
+        <h2 class="text-center mb-4"> المستخدمين وعدد الطلبات</h2>
 
-    <div class="table-responsive">
-    <!-- Your existing table structure -->
-    <table class="table table-hover ">
-        <thead>
-        <tr>
-            <th>رقم الطلب</th>
-            <th>المستخدم</th>
-            <th>من عملة</th>
-            <th>الى عملة</th>
-            <th>يرسل</th>
-            <th>يستقبل</th>
-            <th>رقم المحفظة</th>
-            <th>التحويل</th>
-            <th>تأكيد الطلب</th>
-            <th>تعديل الطلب</th>
+        <div class="table-responsive">
+        <!-- Your existing table structure -->
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                    <th>المستخدم</th>
+                <th>عدد الطلبات</th>
+                <th>الطلبات</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="result : ${requests}" id="row-${result[0]}">
+                <td th:text="${result[0]}"></td>
+                <td th:text="${result[1]}"></td>
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="entity : ${exchange}" id="row-{{entity.id}}">
-            <td th:text="${entity.id}"></td>
-            <td th:text="${entity.user.email}"></td>
-            <td th:text="${entity.sourceCurrency.name}"></td>
-            <td th:text="${entity.targetCurrency.name}"></td>
-            <td class="editable-cell" data-field="sendingAmount" contenteditable="true" th:text="${entity.sendingAmount}"></td>
-            <td class="editable-cell" data-field="receivingAmount" contenteditable="true" th:text="${entity.receivingAmount}"></td>
-            <td class="editable-cell" data-field="walletNumber" contenteditable="true" th:text="${entity.wallet.walletNumber}"></td>
-            <td>
-                <div class="img-container" th:if="${entity.image != null}">
-                    <img class="img-thumbnail custom-image" th:src="@{'/admin/images/' + ${entity.image.id}}" alt="Image" data-toggle="modal" data-target="#imageModal" onclick="showImageModal('@{'/admin/images/' + ${entity.image.id}}')">
-                </div>
-            </td>
-            <td>
-                <form th:action="@{/admin/archive-request}" method="post">
-                    <input type="hidden" name="requestId" th:value="${entity.id}">
-                    <button type="submit" class="btn btn-success">تأكيد</button>
-                </form>
-            </td>
-            <td>
-                <form th:action="@{/admin/update-request}" method="post" >
-                    <input type="hidden" name="requestId" id="requestId"th:value="${entity.id}">
-<!--                    <div class="editable-cell" data-field="sendingAmount" contenteditable="true" th:text="${entity.sendingAmount}"></div>-->
-<!--                    <div class="editable-cell" data-field="receivingAmount" contenteditable="true" th:text="${entity.receivingAmount}"></div>-->
-<!--                    <div class="editable-cell" data-field="walletNumber" contenteditable="true" th:text="${entity.wallet.walletNumber}"></div>-->
+                <td>
+                    <form th:action="@{/admin/requests-forUser/{email}(email=${result[0]})}" method="get">
+                        <button type="submit" class="btn btn-success">الطلبات</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
-
-                    <input type="text" name="sendingAmount" id="sendingAmountInput" th:value="${entity.sendingAmount}">
-                    <input type="text" name="receivingAmount" id="receivingAmountInput" th:value="${entity.receivingAmount}">
-                    <input type="text" name="walletNumber" id="walletNumberInput" th:value="${entity.wallet.walletNumber}">
-
-
-                    <button type="submit" class="btn btn-warning">تعديل</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
 </div>
 
 
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="imageModalLabel">الصورة مكبرة</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <img id="modalImage" src="" alt="Modal Image" class="modal-image custom-modal-image">
-                </div>
-            </div>
-        </div>
-    </div>
 
 
-    <script>
-        $(document).ready(function () {
-            // Handle modal trigger using JavaScript
-            $('.img-thumbnail').click(function () {
-                var imgSrc = $(this).attr('src');
-                $('#modalImage').attr('src', imgSrc);
-                $('#imageModal').modal('show');
 
-                // Set a fixed size for the modal image
-                $('#modalImage').css({
-                    'width': '100%', // Adjust this to your preferred width
-                    'height': 'auto',
-                    'max-width': '80vw', // Ensure the image doesn't exceed 80% of the viewport width
-                    'max-height': '80vh', // Adjust this to your preferred maximum height
-                });
-            });
+        <script src="../assets/global/js/jquery-3.6.0.min.js"></script>
+        <script src="../assets/global/js/bootstrap.bundle.min.js"></script>
 
-            // Prevent modal from closing on "x" button click
-            $('#imageModal').on('click', '.close', function (e) {
-                e.stopPropagation(); // Prevent the default behavior of the close button
-                $('#modalImage').attr('src', ''); // Clear the image source when the modal is closed
-            });
-
-            // Prevent modal from closing on overlay click
-            $('#imageModal').on('click', function (e) {
-                if ($(e.target).hasClass('modal')) {
-                    e.stopPropagation(); // Prevent the default behavior of the overlay click
-                }
-            });
-
-            // Handle modal close events
-            $('#imageModal').on('hidden.bs.modal', function () {
-                $('body').removeClass('modal-open');
-                $('.modal-backdrop').remove();
-            });
-        });
-    </script>
-
-<script src="../assets/global/js/jquery-3.6.0.min.js"></script>
-<script src="../assets/global/js/bootstrap.bundle.min.js"></script>
-
-<script src="../assets/templates/blue_bliss/js/modernizr-3.6.0.min.js"></script>
-<script src="../assets/templates/blue_bliss/js/plugins.js"></script>
-<script src="../assets/templates/blue_bliss/js/swiper.min.js"></script>
-<script src="../assets/templates/blue_bliss/js/wow.min.js"></script>
-<script src="../assets/templates/blue_bliss/js/odometer.min.js"></script>
-<script src="../assets/templates/blue_bliss/js/viewport.jquery.js"></script>
-<script src="../assets/templates/blue_bliss/js/nice-select.js"></script>
-<script src="../assets/templates/blue_bliss/js/main.js"></script>
+        <script src="../assets/templates/blue_bliss/js/modernizr-3.6.0.min.js"></script>
+        <script src="../assets/templates/blue_bliss/js/plugins.js"></script>
+        <script src="../assets/templates/blue_bliss/js/swiper.min.js"></script>
+        <script src="../assets/templates/blue_bliss/js/wow.min.js"></script>
+        <script src="../assets/templates/blue_bliss/js/odometer.min.js"></script>
+        <script src="../assets/templates/blue_bliss/js/viewport.jquery.js"></script>
+        <script src="../assets/templates/blue_bliss/js/nice-select.js"></script>
+        <script src="../assets/templates/blue_bliss/js/main.js"></script>
 
 
-</body>
 
-</html>
+    </body>
+
+    </html>

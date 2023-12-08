@@ -132,6 +132,9 @@
                                 <a href="/admin/all-requests-including-archived" class="btn btn--base-outline btn-sm" >جميع الطلبات</a>
                             </li>
                             <li>
+                                <a href="/admin/UserReqests" class="btn btn--base-outline btn-sm" > طلبات المستخدمين</a>
+                            </li>
+                            <li>
                                 <a href="/admin/contacts" class="btn btn--base-outline btn-sm" >طلبات التواصل</a>
                             </li>
                             <li>
@@ -181,26 +184,26 @@
 <body class="container">
 
 <div class="mt-5">
-    <h2 class="text-center">Add Exchange</h2>
+    <h2 class="text-center">اضافة تحويل بين العملات</h2>
 
 
     <form class="form" th:object="${exchangrate}" th:action="@{/admin/addExchange}" method="post">
         <div class="form-group">
-            <label for="sourceCurrency">Source Currency:</label>
+            <label for="sourceCurrency">العملة الاساسية:</label>
             <select class="form-control" th:field="*{sourceCurrency}">
                 <option th:each="currency : ${currencies}" th:value="${currency.id}" th:text="${currency.name}"></option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="targetCurrency">Target Currency:</label>
+            <label for="targetCurrency">المحولة العملة:</label>
             <select class="form-control" th:field="*{targetCurrency}">
                 <option th:each="currency : ${currencies}" th:value="${currency.id}" th:text="${currency.name}"></option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="exchangeRate">Exchange Rate:</label>
+            <label for="exchangeRate">مقدار التحويل:</label>
             <input type="number" class="form-control" th:field="${exchangrate.rate}"  step="any"required/>
         </div>
 
