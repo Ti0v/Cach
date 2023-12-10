@@ -206,12 +206,19 @@
                 <div class="card custom--card">
                     <div class="card-body">
                         <div class="mb-3">
+                            <div th:if="${param.error}">
+                                <div class="alert alert-danger" th:text="${param.error}"></div>
+                            </div>
                             <br>
                             <button class="btn btn-light copy-icon smaller-button" onclick="copyText()">
                                 <i class="far fa-copy" style="color: black;"></i>
                             </button>
+
                             <span class="special-text">Tron(TRC20)</span> TBTsdZKc3daxpoW8Q3NPqAtxSwCYmUP23Q
                         </div>
+<!--                        <div th:if="${param.error}">-->
+<!--                            <div class="alert alert-danger" th:text="${param.error}"></div>-->
+<!--                        </div>-->
                         <form action="/user/upload-image" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="_token" value="CPYgxmgXqhgthcBBO5CRPv4MccGR6h3PDcHaIWt0">
                             <div class="form-group">

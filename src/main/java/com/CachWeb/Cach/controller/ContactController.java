@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 
 @Controller
@@ -31,10 +34,12 @@ public class ContactController {
     }
 
     @PostMapping("/submitForm")
-    public String submitForm(@ModelAttribute ContactForm contactForm) {
+    public String submitForm(@ModelAttribute ContactForm contactForm) throws UnsupportedEncodingException {
 
 
-     service.addContact(contactForm);
-     return "user/confirmation";
+
+        String encodedError = URLEncoder.encode("تم إرسال الطلب بنجاح سيتم التواصل معك !", StandardCharsets.UTF_8.toString());
+        service.addContact(contactForm);
+        return "redirect:/contact?successMsg="+encodedError;
     }
 }

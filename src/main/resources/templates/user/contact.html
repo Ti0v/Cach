@@ -202,7 +202,9 @@
 
             <br>
             <h4 class="form__title mb-5">تواصل معنا</h4>
-
+            <div th:if="${param.successMsg}" class="alert alert-success">
+                <p th:text="${param.successMsg}"></p>
+            </div>
 
 
             <div class="card-body">
