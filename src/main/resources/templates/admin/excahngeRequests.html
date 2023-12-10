@@ -250,6 +250,12 @@
                     <button type="submit" class="btn btn-warning">تعديل</button>
                 </form>
             </td>
+            <td>
+                <form th:action="@{/admin/exchange/delete/{id}(id=${entity.id})}" method="post">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit" class="btn btn-danger">حذف</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
