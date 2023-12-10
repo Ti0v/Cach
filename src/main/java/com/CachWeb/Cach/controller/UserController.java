@@ -115,7 +115,10 @@ public class UserController {
             if (isAuthenticated) {
                 String username = principal.getName();
                 User user = userService.findUserByEmail(username);
-                exchangeRequest.setUser(user);
+                if (user!=null){
+                    exchangeRequest.setUser(user);
+                }
+
             }
 
             exchangeRequestService.Save(exchangeRequest);
@@ -124,7 +127,7 @@ public class UserController {
             return "redirect:/user/thankyou";
         } catch (IOException e) {
             String encodedError = URLEncoder.encode("خطأ في المدخلات", StandardCharsets.UTF_8.toString());
-            return "redirect:/user/conferm?error="+encodedError;
+            return "redirect:/user/conferm?error=" +encodedError;
         }
 
 
