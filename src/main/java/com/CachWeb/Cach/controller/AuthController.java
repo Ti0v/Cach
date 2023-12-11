@@ -22,13 +22,12 @@ import java.util.List;
 
 @Controller
 public class AuthController {
+    private final ExchangeRateService exchangeRateService;
+    private final UserService userService;
+
     @Autowired
-    private ExchangeRateService exchangeRateService;
-
-
-    private UserService userService;
-
-    public AuthController(UserService userService) {
+    public AuthController(ExchangeRateService exchangeRateService, UserService userService) {
+        this.exchangeRateService = exchangeRateService;
         this.userService = userService;
     }
 
@@ -67,30 +66,10 @@ public class AuthController {
 
         isAuthontecated(model, principal);
 
-
         return "register";
     }
 
-    private void isAuthontecated(Model model, Principal principal) {
-        test(model, principal, userService);
-    }
 
-    static void test(Model model, Principal principal, UserService userService) {
-        boolean isAuthenticated = principal != null;
-        model.addAttribute("isAuthenticated", isAuthenticated);
-
-        if (isAuthenticated) {
-            String username = principal.getName();
-            User userEntity = userService.findUserByEmail(username);
-
-            if (userEntity != null) {
-                Long userId = userEntity.getId();
-                String name = userEntity.getName();
-                model.addAttribute("userId", userId);
-                model.addAttribute("username", name);
-            }
-        }
-    }
 
     @PostMapping("/register/save")
     public String registration(@Valid @ModelAttribute("user") UserDto user, BindingResult result) {
@@ -128,6 +107,27 @@ public class AuthController {
         // Your logic to delete the user
         userService.deleteUser(email);
         return "redirect:/admin/users";
+    }
+
+    private void isAuthontecated(Model model, Principal principal) {
+        test(model, principal, userService);
+    }
+
+    static void test(Model model, Principal principal, UserService userService) {
+        boolean isAuthenticated = principal != null;
+        model.addAttribute("isAuthenticated", isAuthenticated);
+
+        if (isAuthenticated) {
+            String username = principal.getName();
+            User userEntity = userService.findUserByEmail(username);
+
+            if (userEntity != null) {
+                Long userId = userEntity.getId();
+                String name = userEntity.getName();
+                model.addAttribute("userId", userId);
+                model.addAttribute("username", name);
+            }
+        }
     }
 
 }

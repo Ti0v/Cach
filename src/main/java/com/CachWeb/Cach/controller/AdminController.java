@@ -25,25 +25,29 @@ import java.util.List;
 @RequestMapping("/admin")
 
 public class AdminController {
+    private final CurrencyService currencyService;
+    private final UserService userService;
+    private final ExchangeRateService exchangeRateService;
+    private final ContactService contactService;
+    private final ExchangeRequestService exchangeRequestService;
+    private final ImageRepository imageRepository;
 
     @Autowired
-    private CurrencyService currencyService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private ExchangeRateService exchangeRateService;
-    @Autowired
-    private ContactService contactService;
-    @Autowired
-    private ExchangeRequestService exchangeRequestService;
-
-    @Autowired
-    private ImageRepository imageRepository;
+    public AdminController(CurrencyService currencyService, UserService userService,
+                           ExchangeRateService exchangeRateService, ContactService contactService,
+                           ExchangeRequestService exchangeRequestService, ImageRepository imageRepository) {
+        this.currencyService = currencyService;
+        this.userService = userService;
+        this.exchangeRateService = exchangeRateService;
+        this.contactService = contactService;
+        this.exchangeRequestService = exchangeRequestService;
+        this.imageRepository = imageRepository;
+    }
     @GetMapping("/users")
     public String users(Model model,Principal principal){
           List<UserDto> users = userService.findAllUsers();
-        model.addAttribute("users", users);
-        boolean isAuthenticated = principal != null;
+           model.addAttribute("users", users);
+            boolean isAuthenticated = principal != null;
 
         // Add a flag to the model to indicate whether the user is authenticated
         model.addAttribute("isAuthenticated", isAuthenticated);

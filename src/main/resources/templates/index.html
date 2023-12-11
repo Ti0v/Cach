@@ -212,7 +212,7 @@
                                 <div class="form-group w-100">
                                 <input type="hidden" name="_token" value="F8RuIgbyzUPfoSowVnhRO3K50Z9vL7lr4JV6vGcp">
 
-                                    <label>ارسل</label>
+                                    <label>ارسل <span class="text-danger">*</span></label>
                                     <input type="number" step="any" name="sendingAmount" id="sendingAmount" class="form--control" placeholder="0.00" th:field="*{sendingAmount}" required>
                                     <select class="select-bar form--control" name="sourceCurrency" id="sourceCurrency" th:field="*{sourceCurrency}" >
                                         <option th:each="exchange : ${exchangeRate}" th:value="${exchange.sourceCurrency.id}" th:text="${exchange.sourceCurrency.name}" ></option>

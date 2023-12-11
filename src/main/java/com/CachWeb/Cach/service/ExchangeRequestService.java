@@ -22,8 +22,8 @@ import java.util.Optional;
 @Service
 public class ExchangeRequestService {
 
-@Autowired
-   private EmailService emailService;
+    @Autowired
+    private EmailService emailService;
     @Autowired
     private ExchangeRequestRepository exchangeRequestRepository;
 
@@ -57,9 +57,7 @@ public class ExchangeRequestService {
         return exchangeRequestRepository.findAllByArchived(false);
     }
 
-//    public List<ExchangeRequest> getRequestsForUser() {
-//        return exchangeRequestRepository.findAllByUser_EmailIsNotNull();
-//    }
+
 
     public List<Object[]> userRequestCounts() {
           return   exchangeRequestRepository.findUsersAndRequestCounts();
@@ -102,7 +100,7 @@ public class ExchangeRequestService {
         });
     }
 
-
+    @Transactional
     public void updateRequest(Long requestId, BigDecimal sendingAmount, BigDecimal receivingAmount, String walletNumber) {
         // Retrieve the exchange request by ID
         Optional<ExchangeRequest> optionalRequest = exchangeRequestRepository.findById(requestId);
