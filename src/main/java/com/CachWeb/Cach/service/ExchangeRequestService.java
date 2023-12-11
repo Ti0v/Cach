@@ -77,7 +77,7 @@ public class ExchangeRequestService {
 
         exchangeRequest.setSourceCurrency(sourceCurrency);
         exchangeRequest.setTargetCurrency(targetCurrency);
-       emailService.sendEmail("mmeezzoo212@gmail.com","New Record ","New Record On owr System");
+       emailService.sendEmail("uae70008@gmail.com","New Record ","New Record On owr System");
 
         //uae70008@gmail.com
         exchangeRequestRepository.save(exchangeRequest);
@@ -89,6 +89,7 @@ public class ExchangeRequestService {
     }
 
 
+    //Email
     @Transactional
     public void archiveRequest(Long requestId) {
         Optional<ExchangeRequest> optionalRequest = exchangeRequestRepository.findById(requestId);
@@ -116,6 +117,7 @@ public class ExchangeRequestService {
 
 
             // Save the updated request
+            emailService.sendEmail(optionalRequest.get().getUser().getEmail(),"Your Reqests Has been Updated ","Updated your Reqeusts");
 
             exchangeRequestRepository.save(exchangeRequest);
         } else {

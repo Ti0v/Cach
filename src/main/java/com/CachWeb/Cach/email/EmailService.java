@@ -26,10 +26,10 @@ public class EmailService {
             mailMessage.setText(body);
 
             mailSender.send(mailMessage);
-            System.out.println("Email sent successfully");
+//            System.out.println("Email sent successfully");
         } catch (Exception e) {
             e.printStackTrace();  // Handle exceptions appropriately
-            System.out.println("The error"+ e.getMessage());
+//            System.out.println("The error"+ e.getMessage());
         }
     }
 

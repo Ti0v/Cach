@@ -6406,7 +6406,7 @@ header .nice-select .option.selected.focus {
 .form--control {
     height: 55px;
     border-radius: 3px;
-    color: #0E1621;
+    /*color: #0E1621;*/
     font-weight: 400;
     outline: none;
     width: 100%;

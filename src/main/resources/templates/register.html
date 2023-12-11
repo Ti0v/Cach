@@ -202,7 +202,7 @@
             <div th:if="${param.error}">
                 <div class="alert alert-danger" th:text="${param.error}"></div>
             </div>
-        </div>
+<!--        </div>-->
             <div class="card-body">
 
                 <form  method="POST" class="verify-gcaptcha" th:action="@{/register/save}" th:object="${user}">
@@ -270,9 +270,9 @@
                         هل لديك حساب؟ <a class="text--base" href="/login">تسجيل الدخول</a>
                     </p>
                 </form>
-
             </div>
-        </div>
+            </div>
+        </div>  </div>
     </div>
 </div>
     <footer class="overflow-hidden">
