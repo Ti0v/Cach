@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setPhoneNumber(userDto.getPhoneNumber());
 
-        Role role = roleRepository.findByName("ROLE_ADMIN");
+        Role role = roleRepository.findByName("ROLE_USER");
 
         if(role == null){
             role = checkRoleExist();
@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
 //        Role role = new Role();
 //        role.setName(ROLE_ADMIN);
 //        roleRepository.save(role);
-        String ROLE_USER="ROLE_USER";
+        String ROLE_USER="ROLE_ADMIN";
         Role role1 = new Role();
         role1.setName(ROLE_USER);
 

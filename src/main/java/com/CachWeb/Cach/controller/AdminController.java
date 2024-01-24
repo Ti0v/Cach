@@ -9,6 +9,9 @@ import com.CachWeb.Cach.repository.ImageRepository;
 import com.CachWeb.Cach.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -147,17 +150,47 @@ public class AdminController {
         return "redirect:/admin/exchange-list";
     }
 
-
-
     @GetMapping("/exchange-requests")
-    public String showEntities(Model model , Principal principal) {
+    public String showEntities(Model model, Principal principal, @RequestParam(defaultValue = "0") int page) {
         boolean isAuthenticated = principal != null;
 
         // Add a flag to the model to indicate whether the user is authenticated
         model.addAttribute("isAuthenticated", isAuthenticated);
-        List<ExchangeRequest> exchange = exchangeRequestService.getAllRequestsWithoutArchived();
-        model.addAttribute("exchange", exchange);
-        return "admin/excahngeRequests";
+
+        // Set the number of items per page
+        int pageSize = 4; // Adjust this as needed
+
+        // Create a Pageable object for pagination using PageRequest
+        Pageable pageable = PageRequest.of(page, pageSize);
+
+        // Retrieve a Page of ExchangeRequest entities
+        Page<ExchangeRequest> exchangePage = exchangeRequestService.getPageOfRequestsWithoutArchived(pageable);
+
+
+        // Add the page content and pagination information to the model
+        model.addAttribute("exchange", exchangePage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", exchangePage.getTotalPages());
+
+        return "admin/excahngeRequests"; // Corrected view name
+    }
+    @GetMapping("/all-requests-including-archived")
+    public String getAllRequestsWithArchived(Model model , Principal principal,@RequestParam(defaultValue = "0") int page) {
+        boolean isAuthenticated = principal != null;
+        model.addAttribute("isAuthenticated", isAuthenticated);
+        int pageSize = 4; // Adjust this as needed
+        Pageable pageable = PageRequest.of(page, pageSize);
+        model.addAttribute("currentPage", page);
+
+        // Add a flag to the model to indicate whether the user is authenticated
+
+
+        Page<ExchangeRequest> allRequests = exchangeRequestService.getAllRequestsIncludingArchived(pageable);
+
+        model.addAttribute("exchange", allRequests.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", allRequests.getTotalPages());
+        return "admin/all_requests_including_archived";
     }
     @PostMapping("/update-request")
     public String updateRequest(@RequestParam("requestId") Long requestId,
@@ -192,20 +225,12 @@ public class AdminController {
     }
 
 
-    @GetMapping("/all-requests-including-archived")
-    public String getAllRequestsWithArchived(Model model , Principal principal) {
-        boolean isAuthenticated = principal != null;
 
-        // Add a flag to the model to indicate whether the user is authenticated
-        model.addAttribute("isAuthenticated", isAuthenticated);
-        List<ExchangeRequest> allRequests = exchangeRequestService.getAllRequestsIncludingArchived();
-        model.addAttribute("allRequests", allRequests);
-        return "admin/all_requests_including_archived";
-    }
 
     @PostMapping("/archive-request")
     public String archiveRequest(@RequestParam Long requestId) {
         exchangeRequestService.archiveRequest(requestId);
+
         return "redirect:/admin/exchange-requests";
     }
 

@@ -10,6 +10,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -50,13 +52,12 @@ public class ExchangeRequestService {
     }
 
 
-    public List<ExchangeRequest> getAllRequestsIncludingArchived() {
-        return exchangeRequestRepository.findAllByArchived(true);
+    public Page<ExchangeRequest> getAllRequestsIncludingArchived(Pageable pageable) {
+        return exchangeRequestRepository.findAllByArchived(true, pageable);
     }
-    public List<ExchangeRequest> getAllRequestsWithoutArchived() {
-        return exchangeRequestRepository.findAllByArchived(false);
+    public Page<ExchangeRequest> getPageOfRequestsWithoutArchived(Pageable pageable) {
+        return exchangeRequestRepository.findAllByArchived(false, pageable);
     }
-
 
 
     public List<Object[]> userRequestCounts() {
@@ -77,7 +78,7 @@ public class ExchangeRequestService {
 
         exchangeRequest.setSourceCurrency(sourceCurrency);
         exchangeRequest.setTargetCurrency(targetCurrency);
-       emailService.sendEmail("uae70008@gmail.com","New Record ","New Record On owr System");
+     //  emailService.sendEmail("ti0v85@gmail.com","New Record ","There is now reqursd on own Seystem ");
 
         //uae70008@gmail.com
         exchangeRequestRepository.save(exchangeRequest);
@@ -95,7 +96,7 @@ public class ExchangeRequestService {
         Optional<ExchangeRequest> optionalRequest = exchangeRequestRepository.findById(requestId);
         optionalRequest.ifPresent(request -> {
             request.setArchived(true);
-            emailService.sendEmail(optionalRequest.get().getUser().getEmail(),"Your Reqests Has been Conform ","New Record On owr System");
+      //      emailService.sendEmail(optionalRequest.get().getUser().getEmail()," Your Reqests Has been Conform ","New Record On owr System");
 
             exchangeRequestRepository.save(request);
         });
@@ -117,7 +118,7 @@ public class ExchangeRequestService {
 
 
             // Save the updated request
-            emailService.sendEmail(optionalRequest.get().getUser().getEmail(),"Your Reqests Has been Updated ","Updated your Reqeusts");
+      //      emailService.sendEmail(optionalRequest.get().getUser().getEmail(),"Your Requests Has been Updated ","Updated your Requests");
 
             exchangeRequestRepository.save(exchangeRequest);
         } else {

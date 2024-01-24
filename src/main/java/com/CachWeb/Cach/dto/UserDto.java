@@ -28,8 +28,6 @@ public class UserDto
     @NotEmpty(message = "Password should not be empty")
     private String password;
 
-
-
-
-
+    @NotEmpty(message = "Password confirmation should not be empty")
+    private String passwordConfirmation;
 }

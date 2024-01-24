@@ -74,125 +74,19 @@
         </div>
     <a href="#0" class="scrollToTop"><i class="la la-angle-up"></i></a>
     <div class="overlay"></div>
-    <header>
-        <div class="header-top">
-            <div class="container">
-                <div class="header-top-area">
-                    <div class="header-wrapper">
-                        <div class="header-top-item">
-                            <div class="header-top-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="header-top-content">
-                                <span>Dubai</span>
-                            </div>
-                        </div>
-                        <div class="header-top-item">
-                            <div class="header-top-icon">
-                                <i class="far fa-envelope"></i>
-                            </div>
-                            <div class="header-top-content">
-                                <a href="uae70008@gmail.com">uae70008@gmail.com</a>
-                            </div>
-                        </div>
-                        <div class="header-top-right-item header-top-item">
-                            <a href="tel:+20 1066475760">
-                                <i class="fas fa-phone"></i>
-                            </a>
-                            <span>+20 1066475760</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="header-bottom">
-            <div class="container">
-                <div class="header-bottom-area">
-                    <div class="logo">
-                        <a href="/index">
-                            <img src="../assets/images/logoIcon/blue_bliss/lggg.png" >
-                        </a>
-                    </div>
-                    <div class="menu-area">
-                        <ul class="menu">
-                            <li>
-                                <a href="/index" class="btn btn--base-outline btn-sm" >الرئيسية</a>
-                            </li>
-
-                            <li>
-                                <a href="/admin/list" class="btn btn--base-outline btn-sm" >العملات</a>
-                            </li>
-                            <li>
-                                <a href="/admin/exchange-list" class="btn btn--base-outline btn-sm" >التحويل بين العملات</a>
-                            </li>
-                            <li>
-                                <a href="/admin/exchange-requests" class="btn btn--base-outline btn-sm" > احدث الطلبات</a>
-                            </li>
-                            <li>
-                                <a href="/admin/all-requests-including-archived" class="btn btn--base-outline btn-sm" >جميع الطلبات</a>
-                            </li>
-                            <li>
-                                <a href="/admin/UserReqests" class="btn btn--base-outline btn-sm" > طلبات المستخدمين</a>
-                            </li>
-                            <li>
-                                <a href="/admin/contacts" class="btn btn--base-outline btn-sm" >طلبات التواصل</a>
-                            </li>
-                            <li>
-                                <a href="/admin/users" class="btn btn--base-outline btn-sm" >المستخدمين</a>
-                            </li>
-                            <li class="d-lg-none d-block">
-                                <div class="d-flex flex-wrap justify-content-between">
-                                    <a th:unless="${isAuthenticated}" href="/login" class="btn btn--base-outline btn-sm">تسجيل الدخول</a>
-                                    <a th:unless="${isAuthenticated}" href="/register" class="btn btn--base-outline btn-sm">مستخدم جديد</a>
-
-                                    <div th:if="${isAuthenticated}">
-
-                                        <p th:text="'اهلاّ بك Admin'  " class="btn btn--base-outline btn-sm"></p>
-
-                                    </div>
-                                </div>
-                            </li>
-
-                        </ul>
-
-
-                        <div class="header-buttons d-lg-block d-none">
-                            <div class="d-flex flex-wrap justify-content-between">
-                                <a th:unless="${isAuthenticated}" href="/login" class="btn btn--base-outline btn-sm">تسجيل الدخول</a>
-                                <a th:unless="${isAuthenticated}" href="/register" class="btn btn--base-outline btn-sm">مستخدم جديد</a>
-
-                                <div th:if="${isAuthenticated}">
-
-                                    <p th:text="'اهلاّ بك Admin'  " class="btn btn--base-outline btn-sm"></p>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="header-bar-area d-lg-none">
-                            <div class="header-bar">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+ <div th:replace="~{fragments/headerAdmin :: header}"></div>
 <body>
 <div class="container mt-5">
-    <h2 class="text-center">العملات </h2>
+    <h2 class="text-center">Currency </h2>
     <div class="table-responsive">
     <!-- Display exchange list -->
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>رقم العملة</th>
-            <th>رمز العملة</th>
-            <th>اسم العملة</th>
-            <th>العمليات</th>
+            <th>Number Currency </th>
+            <th>ID Currency</th>
+            <th>Name Currency</th>
+            <th>process</th>
         </tr>
         </thead>
         <tbody>
@@ -201,7 +95,7 @@
             <td th:text="${currency.code}"></td>
             <td th:text="${currency.name}"></td>
             <td>
-                <a class="btn btn-danger btn-sm" th:href="@{/admin/delete/currency/{id}(id=${currency.id})}">حذف</a>
+                <a class="btn btn-danger btn-sm" th:href="@{/admin/delete/currency/{id}(id=${currency.id})}">delete</a>
             </td>
         </tr>
         </tbody>
@@ -209,7 +103,7 @@
         </div>
 
     <!-- Add new exchange form -->
-    <a class="btn btn-success btn-block mt-3" th:href="@{/admin/add}">إضافة عملة جديدة</a>
+    <a class="btn btn-success btn-block mt-3" th:href="@{/admin/add}">Add new Currency</a>
 </div>
 <br>
 </body>

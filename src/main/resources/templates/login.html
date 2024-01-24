@@ -100,134 +100,47 @@
         </style>
     </head>
 
-    <body>
-
     <a href="#" class="scrollToTop"><i class="la la-angle-up"></i></a>
     <div class="overlay"></div>
-    <header>
-        <div class="header-top">
-            <div class="container">
-                <div class="header-top-area">
-                    <div class="header-wrapper">
-                        <div class="header-top-item">
-                            <div class="header-top-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="header-top-content">
-                                <span>Dubai</span>
-                            </div>
-                        </div>
-                        <div class="header-top-item">
-                            <div class="header-top-icon">
-                                <i class="far fa-envelope"></i>
-                            </div>
-                            <div class="header-top-content">
-                                <a href="mailto:uae70008@gmail.com">uae70008@gmail.com</a>
-                            </div>
-                        </div>
-                        <div class="header-top-right-item header-top-item">
-                            <a href="tel:+20 1066475760">
-                                <i class="fas fa-phone"></i>
-                            </a>
-                            <span>+20 1066475760</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="header-bottom">
-            <div class="container">
-                <div class="header-bottom-area">
-                    <div class="logo">
-                        <a href="/index">
-                            <img src="assets/images/logoIcon/blue_bliss/lggg.png" >
-                        </a>
-                    </div>
-                    <div class="menu-area">
-                        <ul class="menu">
-                            <li>
-                                <a href="/index" class="btn btn--base-outline btn-sm" >الرئيسية</a>
-                            </li>
-
-                            <li>
-                                <a href="/contact" class="btn btn--base-outline btn-sm" >تواصل معنا</a>
-                            </li>
-                            <li class="d-lg-none d-block">
-                                <div class="d-flex flex-wrap justify-content-between">
-                                    <a th:unless="${isAuthenticated}" href="/login" class="btn btn--base-outline btn-sm">تسجيل الدخول</a>
-                                    <a th:unless="${isAuthenticated}" href="/register" class="btn btn--base-outline btn-sm">مستخدم جديد</a>
-
-                                    <div th:if="${isAuthenticated}">
-
-                                        <p th:text="'اهلاّ: ' + ${username}" class="btn btn--base-outline btn-sm"></p>
-
-                                    </div>
-                                </div>
-                            </li>
-
-                        </ul>
-
-                        <div class="header-buttons d-lg-block d-none">
-                            <a th:unless="${isAuthenticated}" href="/login" class="btn btn--base-outline btn-sm">تسجيل الدخول</a>
-                            <a th:unless="${isAuthenticated}" href="/register" class="btn btn--base-outline btn-sm">مستخدم جديد</a>
-
-                            <div th:if="${isAuthenticated}">
-
-                                <p th:text="'اهلاّ: ' + ${username}" class="btn btn--base-outline btn-sm"></p>
-
-                            </div>
-                        </div>
-
-                        <div class="header-bar-area d-lg-none">
-                            <div class="header-bar">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    <div th:replace="~{fragments/headerFragment :: header}"></div>
+<body>
 
 <section class="padding-top padding-bottom  section-bg">
-
     <div class="row justify-content-center">
 
         <div class="col-md-8 col-lg-7 col-xl-4">
             <div th:if="${param.error}">
-                <div class="alert alert-danger">خطأ في الرمز السري او البريد الإلكتروني</div>
+                <div class="alert alert-danger">Email and password have problem</div>
             </div>
             <div th:if="${param.logout}">
-                <div class="alert alert-success"> تم تسجيل الخروج.</div>
+                <div class="alert alert-success">logout done.</div>
             </div>
             <div class="card card-form custom--card">
                 <div class="card-body">
-                    <h4 class="form__title mg-5">تسجيل الدخول</h4>
+                    <h4 class="form__title mg-5">login</h4>
                     <form method="POST" action="" class="verify-gcaptcha" th:action="@{/login}">
                         <input type="hidden" name="_token" value="F8RuIgbyzUPfoSowVnhRO3K50Z9vL7lr4JV6vGcp">                            <div class="form-group">
-                        <label for="email" class="form-label"> <span class="text-danger">*</span> البريد الإلكتروني</label>
+                        <label for="email" class="form-label"> <span class="text-danger">*</span> Email</label>
                         <input type="text" id="username" name="username" class="form-control form--control" required>
 
                     </div>
 
                         <div class="form-group">
-                            <label for="password" class="form-label"> <span class="text-danger">*</span> كلمة المرور</label>
+                            <label for="password" class="form-label"> <span class="text-danger">*</span>Password</label>
                             <input id="password" type="password" class="form-control form--control" name="password" required>
                         </div>
                         <div class="form-group form--check">
                             <input class="form-check-input" type="checkbox" name="remember" id="remember" >
-                            <label class="form-check-label" for="remember"> تذكرني</label>
+                            <label class="form-check-label" for="remember"> remember me</label>
                         </div>
                         <div class="form-group">
-                            <button type="submit" id="recaptcha" class="btn btn--base w-100">الدخول </button>
+                            <button type="submit" id="recaptcha" class="btn btn--base w-100">login </button>
                         </div>
                         <div class="d-flex flex-wrap justify-content-between">
                             <a class="text--base" href="#">
-                                نسيت الرمز السري؟                               </a>
+                                Forget password؟                               </a>
                             <span>
-                                    ليس لديك حساب؟ <a class="text--base" href="/register">حساب جديد</a>
+                                    Dont have a count؟ <a class="text--base" href="/register">register</a>
                                 </span>
                         </div>
                     </form>
@@ -236,57 +149,11 @@
         </div>
     </div>
 </section>
+<div th:replace="~{fragments/footerFragment :: footer}"></div>
+
+</body>
 
 <!--=======Footer-Section Starts Here=======-->
-    <footer class="overflow-hidden">
-        <div class="footer-top padding-top padding-bottom">
-            <div class="container">
-                <div class="footer-area">
-                    <div class="footer-widget widget-about">
-                        <div class="footer-logo">
-                            <a href="index.html">
-                                <img src="../assets/images/logoIcon/blue_bliss/lggg.png" alt="Easy money exchanger" title="Dollar Cash exchanger">
-                            </a>
-                        </div>
-                        <p>Dollar Cash Exchanger - منصة<br>
-                            آمنة ومناسبة لصرف العملات</p>
-                    </div>
-                    <div class="footer-widget widget-link">
-                        <h5 class="title">الدعم</h5>
-                        <ul>
-                            <li>
-                                <a href="/contact">تواصل معنا</a>
-                            </li>
-
-                            <li>
-                                <a href="/login">الدخول</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-widget widget-link">
-                        <h5 class="title">بوابات الدفع</h5>
-                        <ul>
-                            <li>
-                                <a href="/index">
-                                    Vodafone Cash
-                                </a>
-
-                            </li>
-                            <li>
-                                <a href="/index">
-                                    Dollar
-                                </a>
-                            </li>
-
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </footer>
-
 
 <script src="../assets/global/js/jquery-3.6.0.min.js"></script>
 <script src="../assets/global/js/bootstrap.bundle.min.js"></script>
@@ -315,7 +182,6 @@
 <link rel="stylesheet" href="../assets/global/css/iziToast.min.css">
 <script src="../assets/global/js/iziToast.min.js"></script>
 
-</body>
 </html>
 
 

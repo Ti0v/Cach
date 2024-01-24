@@ -4939,7 +4939,6 @@ blockquote {
         -moz-transform: scale(1);
         -ms-transform: scale(1);
         -o-transform: scale(1);
-        -webkit-filter: alpha(opacity=50);
     }
 
     80% {
@@ -5627,11 +5626,6 @@ blockquote {
     padding: 12px 0;
     opacity: 0;
     color: #ffffff;
-    -webkit-transform: translate3d(10, 10px, 0);
-    -moz-transform: translate3d(10, 10px, 0);
-    -ms-transform: translate3d(10, 10px, 0);
-    -o-transform: translate3d(10, 10px, 0);
-    transform: translate3d(10, 10px, 0);
     -webkit-transition: all 0.3s ease 0s;
     -moz-transition: all 0.3s ease 0s;
     -o-transition: all 0.3s ease 0s;
@@ -6333,7 +6327,6 @@ footer {
     height: 100%;
     max-width: 200px;
     max-height: 200px;
-    background-color: white 0%;
     border: 1px solid #ffffff;
     border-radius: 50%;
     display: inline-block;
@@ -6540,6 +6533,7 @@ textarea.form--control {
 
 /* New Code */
 .btn {
+    /*padding: 13px 25px;*/
     padding: 13px 25px;
     color: #fff;
     font-size: 18px;

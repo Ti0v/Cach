@@ -82,135 +82,29 @@
     </div>
     <a href="#0" class="scrollToTop"><i class="la la-angle-up"></i></a>
     <div class="overlay"></div>
-    <header>
-        <div class="header-top">
-            <div class="container">
-                <div class="header-top-area">
-                    <div class="header-wrapper">
-                        <div class="header-top-item">
-                            <div class="header-top-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="header-top-content">
-                                <span>Dubai</span>
-                            </div>
-                        </div>
-                        <div class="header-top-item">
-                            <div class="header-top-icon">
-                                <i class="far fa-envelope"></i>
-                            </div>
-                            <div class="header-top-content">
-                                <a href="uae70008@gmail.com">uae70008@gmail.com</a>
-                            </div>
-                        </div>
-                        <div class="header-top-right-item header-top-item">
-                            <a href="tel:+20 1066475760">
-                                <i class="fas fa-phone"></i>
-                            </a>
-                            <span>+20 1066475760</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="header-bottom">
-            <div class="container">
-                <div class="header-bottom-area">
-                    <div class="logo">
-                        <a href="/index">
-                            <img src="../assets/images/logoIcon/blue_bliss/lggg.png" >
-                        </a>
-                    </div>
-                    <div class="menu-area">
-                        <ul class="menu">
-                            <li>
-                                <a href="/index" class="btn btn--base-outline btn-sm" >الرئيسية</a>
-                            </li>
-
-                            <li>
-                                <a href="/admin/list" class="btn btn--base-outline btn-sm" >العملات</a>
-                            </li>
-                            <li>
-                                <a href="/admin/exchange-list" class="btn btn--base-outline btn-sm" >التحويل بين العملات</a>
-                            </li>
-                            <li>
-                                <a href="/admin/exchange-requests" class="btn btn--base-outline btn-sm" > احدث الطلبات</a>
-                            </li>
-                            <li>
-                                <a href="/admin/all-requests-including-archived" class="btn btn--base-outline btn-sm" >جميع الطلبات</a>
-                            </li>
-                            <li>
-                                <a href="/admin/UserReqests" class="btn btn--base-outline btn-sm" > طلبات المستخدمين</a>
-                            </li>
-                            <li>
-                                <a href="/admin/contacts" class="btn btn--base-outline btn-sm" >طلبات التواصل</a>
-                            </li>
-                            <li>
-                                <a href="/admin/users" class="btn btn--base-outline btn-sm" >المستخدمين</a>
-                            </li>
-                            <li class="d-lg-none d-block">
-                                <div class="d-flex flex-wrap justify-content-between">
-                                    <a th:unless="${isAuthenticated}" href="/login" class="btn btn--base-outline btn-sm">تسجيل الدخول</a>
-                                    <a th:unless="${isAuthenticated}" href="/register" class="btn btn--base-outline btn-sm">مستخدم جديد</a>
-
-                                    <div th:if="${isAuthenticated}">
-
-                                        <p th:text="'اهلاّ بك Admin'  " class="btn btn--base-outline btn-sm"></p>
-
-                                    </div>
-                                </div>
-                            </li>
-
-                        </ul>
-
-
-                        <div class="header-buttons d-lg-block d-none">
-                            <div class="d-flex flex-wrap justify-content-between">
-                                <a th:unless="${isAuthenticated}" href="/login" class="btn btn--base-outline btn-sm">تسجيل الدخول</a>
-                                <a th:unless="${isAuthenticated}" href="/register" class="btn btn--base-outline btn-sm">مستخدم جديد</a>
-
-                                <div th:if="${isAuthenticated}">
-
-                                    <p th:text="'اهلاّ بك Admin'  " class="btn btn--base-outline btn-sm"></p>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="header-bar-area d-lg-none">
-                            <div class="header-bar">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    <div th:replace="~{fragments/headerAdmin :: header}"></div>
 <body class="bg-light">
 
 
 <div class="container mt-5">
 
-    <h2 class="text-center mb-4">احدث الطلبات</h2>
+    <h2 class="text-center mb-4">Last Requests</h2>
 
     <div class="table-responsive">
     <!-- Your existing table structure -->
     <table class="table table-hover ">
         <thead>
         <tr>
-            <th>رقم الطلب</th>
-            <th>المستخدم</th>
-            <th>من عملة</th>
-            <th>الى عملة</th>
-            <th>يرسل</th>
-            <th>يستقبل</th>
-            <th>رقم المحفظة</th>
-            <th>التحويل</th>
-            <th>تأكيد الطلب</th>
-            <th>تعديل الطلب</th>
+            <th>number</th>
+            <th>user</th>
+            <th>from</th>
+            <th>to</th>
+            <th>send</th>
+            <th>get</th>
+            <th>wallet Number</th>
+            <th>prove</th>
+            <th>Confirm Request</th>
+            <th>Update the request</th>
 
         </tr>
         </thead>
@@ -220,9 +114,12 @@
             <td th:text="${entity.user.email}"></td>
             <td th:text="${entity.sourceCurrency.name}"></td>
             <td th:text="${entity.targetCurrency.name}"></td>
-            <td class="editable-cell" data-field="sendingAmount" contenteditable="true" th:text="${entity.sendingAmount}"></td>
-            <td class="editable-cell" data-field="receivingAmount" contenteditable="true" th:text="${entity.receivingAmount}"></td>
-            <td class="editable-cell" data-field="walletNumber" contenteditable="true" th:text="${entity.wallet.walletNumber}"></td>
+            <td th:text="${entity.sendingAmount}"></td>
+            <td th:text="${entity.receivingAmount}"></td>
+            <td th:text="${entity.wallet.walletNumber}"></td>
+<!--            <td class="editable-cell" data-field="sendingAmount" contenteditable="true" th:text="${entity.sendingAmount}"></td>-->
+<!--            <td class="editable-cell" data-field="receivingAmount" contenteditable="true" th:text="${entity.receivingAmount}"></td>-->
+<!--            <td class="editable-cell" data-field="walletNumber" contenteditable="true" th:text="${entity.wallet.walletNumber}"></td>-->
             <td>
                 <div class="img-container" th:if="${entity.image != null}">
                     <img class="img-thumbnail custom-image" th:src="@{'/admin/images/' + ${entity.image.id}}" alt="Image" data-toggle="modal" data-target="#imageModal" onclick="showImageModal('@{'/admin/images/' + ${entity.image.id}}')">
@@ -253,13 +150,55 @@
             <td>
                 <form th:action="@{/admin/exchange/delete/{id}(id=${entity.id})}" method="post">
                     <input type="hidden" name="_method" value="delete"/>
-                    <button type="submit" class="btn btn-danger">حذف</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
+</div><nav aria-label="...">
+    <ul class="pagination">
+        <li th:unless="${currentPage == 0}" class="page-item">
+            <a class="page-link" th:href="@{/admin/exchange-requests(page=0)}">first</a>
+        </li>
+        <li th:unless="${currentPage == 0}" class="page-item">
+            <a class="page-link" th:href="@{/admin/exchange-requests(page=${currentPage - 1})}"><</a>
+        </li>
+        <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:class="${currentPage == i} ? 'page-item active' : 'page-item'">
+            <a class="page-link" th:href="@{/admin/exchange-requests(page=${i})}" th:text="${i + 1}" ></a>
+        </li>
+        <li th:unless="${currentPage == totalPages - 1}" class="page-item">
+            <a class="page-link" th:href="@{/admin/exchange-requests(page=${currentPage + 1})}">next</a>
+        </li>
+        <li th:unless="${currentPage == totalPages - 1}" class="page-item">
+            <a class="page-link" th:href="@{/admin/exchange-requests(page=${totalPages - 1})}">last</a>
+        </li>
+    </ul>
+</nav>
+
 </div>
+
+<!--    <div class="pagination justify-content-center mt-4">-->
+<!--        <ul class="pagination">-->
+<!--            <li th:unless="${currentPage == 0}">-->
+<!--                <a th:href="@{/exchange-requests?page=0}">&laquo; first</a>-->
+<!--            </li>-->
+<!--            <li th:unless="${currentPage == 0}">-->
+<!--                <a th:unless="${currentPage == 0}" th:href="@{/admin/exchange-requests(page=${currentPage - 1})}">previous</a>-->
+
+<!--            </li>-->
+<!--            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:class="${currentPage == i} ? 'active' : ''">-->
+<!--                <a th:href="@{/admin/exchange-requests(page=${i})}" th:text="${i + 1}" th:style="${currentPage == i} ? 'color: red;' : ''"></a>-->
+<!--            </li>-->
+
+<!--            <li th:unless="${currentPage == totalPages - 1}">-->
+<!--                <a th:href="@{/admin/exchange-requests(page=${currentPage + 1})}">next</a>-->
+<!--            </li>-->
+<!--            <li th:unless="${currentPage == totalPages - 1}">-->
+<!--                <a th:href="@{/admin/exchange-requests(page=${totalPages - 1})}">last &raquo;</a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
 
 
 
@@ -331,7 +270,6 @@
 <script src="../assets/templates/blue_bliss/js/viewport.jquery.js"></script>
 <script src="../assets/templates/blue_bliss/js/nice-select.js"></script>
 <script src="../assets/templates/blue_bliss/js/main.js"></script>
-
 
 </body>
 

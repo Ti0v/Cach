@@ -8,11 +8,15 @@ import com.CachWeb.Cach.service.ExchangeRateService;
 import com.CachWeb.Cach.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -22,11 +26,16 @@ import java.util.List;
 
 @Controller
 public class AuthController {
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    private final UserDetailsService userDetailsService;
     private final ExchangeRateService exchangeRateService;
     private final UserService userService;
 
     @Autowired
-    public AuthController(ExchangeRateService exchangeRateService, UserService userService) {
+    public AuthController(UserDetailsService userDetailsService, ExchangeRateService exchangeRateService, UserService userService) {
+        this.userDetailsService = userDetailsService;
         this.exchangeRateService = exchangeRateService;
         this.userService = userService;
     }
@@ -36,14 +45,14 @@ public class AuthController {
     @GetMapping({"/","/index"})
 
     public String home(Model model, Principal principal) {
+        // Check if the user is authenticated
+        isAuthontecated(model, principal);
         List<ExchangeRate> exchangeRates = exchangeRateService.getAllExchangeRates();
         model.addAttribute("exchangeRate", exchangeRates);
 
         ExchangeRequest exchangeRequest = new ExchangeRequest();
         model.addAttribute("exchangeRequest", exchangeRequest);
 
-        // Check if the user is authenticated
-        isAuthontecated(model, principal);
 
         return "index";
     }
@@ -51,7 +60,6 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login(Model model , Principal principal){
-
 
         isAuthontecated(model, principal);
         return "login";
@@ -72,30 +80,49 @@ public class AuthController {
 
 
     @PostMapping("/register/save")
-    public String registration(@Valid @ModelAttribute("user") UserDto user, BindingResult result) {
+    public String registration(@Valid @ModelAttribute("user") UserDto user, BindingResult result,Model model) {
+        // Check for existing email
         User existingUser = userService.findUserByEmail(user.getEmail());
-
         if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
             result.rejectValue("email", null, "هذا الايميل موجود بالفعل");
         }
 
+        // Check for password confirmation
+        if (!user.getPassword().equals(user.getPasswordConfirmation())) {
+            result.rejectValue("password", null, "كلمة المرور وتأكيد كلمة المرور غير متطابقين");
+            result.rejectValue("passwordConfirmation", null, "كلمة المرور وتأكيد كلمة المرور غير متطابقين");
+        }
+
         if (result.hasErrors()) {
             try {
-                // URL encode the error message
-                String encodedError = URLEncoder.encode("هذا الايميل موجود بالفعل", StandardCharsets.UTF_8.toString());
-
-                // Use the encoded error message in the redirect URL
-                return "redirect:/register?error=" + encodedError;
+                // Handle errors based on their presence in the BindingResult
+                if (result.getFieldError("email") != null) {
+                    // Email error exists
+                    String encodedError = URLEncoder.encode("هذا الايميل موجود بالفعل", StandardCharsets.UTF_8.toString());
+                    return "redirect:/register?error=" + encodedError;
+                } else if (result.getFieldError("password") != null || result.getFieldError("passwordConfirmation") != null) {
+                    // Password or password confirmation error exists
+                    // Handle this case as needed
+                    String encodedError = URLEncoder.encode("كلمة المرور غير متطابقة", StandardCharsets.UTF_8.toString());
+                    return "redirect:/register?error=" + encodedError;
+                }
             } catch (UnsupportedEncodingException e) {
                 // Handle the encoding exception, e.g., log the error
                 e.printStackTrace();
             }
         }
 
+
+        // Save user if no errors
         userService.saveUser(user);
 
-        // Redirect with a success message if needed
 
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        // Redirect with a success message if needed
         return "redirect:/index";
     }
 
@@ -119,18 +146,13 @@ public class AuthController {
 
         if (isAuthenticated) {
             String username = principal.getName();
-            User userEntity = userService.findUserByEmail(username);
-
-            if (userEntity != null) {
-                Long userId = userEntity.getId();
-                String name = userEntity.getName();
-                model.addAttribute("userId", userId);
-                model.addAttribute("username", name);
+                model.addAttribute("username", username);
             }
         }
     }
 
-}
+
+
 
 
 

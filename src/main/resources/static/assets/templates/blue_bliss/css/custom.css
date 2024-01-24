@@ -1,7 +1,6 @@
 /* Copy Animation */
 
 .base-color{
-  color: hsl(var(--main)) !important;
 }
 .copyInput {
 	display: inline-block;
