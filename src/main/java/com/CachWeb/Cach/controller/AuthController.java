@@ -146,10 +146,11 @@ public class AuthController {
 
         if (isAuthenticated) {
             String username = principal.getName();
-                model.addAttribute("username", username);
-            }
+            String firstName = userService.findUserByEmail(username).getName();
+            model.addAttribute("firstName", firstName);
         }
     }
+}
 
 
 
