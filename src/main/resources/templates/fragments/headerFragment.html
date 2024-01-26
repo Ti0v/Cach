@@ -19,7 +19,7 @@
                         </div>
                         <div class="header-top-content">
                             <a href="mailto:uae70008@gmail.com">mazen@gmail.com</a>
-<!--                                                            <a href="mailto:uae70008@gmail.com">uae70008@gmail.com</a>-->
+                            <!--                                                            <a href="mailto:uae70008@gmail.com">uae70008@gmail.com</a>-->
                         </div>
                     </div>
                     <div class="header-top-right-item header-top-item">
@@ -27,7 +27,7 @@
                             <i class="fas fa-phone"></i>
                         </a>
                         <span>+966 543001111</span>
-<!--                                                    <span>+20 1066475760</span>-->
+                        <!--                                                    <span>+20 1066475760</span>-->
                     </div>
                 </div>
             </div>
@@ -50,31 +50,23 @@
                         <li>
                             <a href="/contact" class="btn btn--base-outline btn-sm" >Contact</a>
                         </li>
-                        <li class="d-lg-none d-block">
-                            <div class="d-flex flex-wrap justify-content-between">
-                                <a th:unless="${isAuthenticated}" href="/login" class="btn btn--base-outline btn-sm">login</a>
-                                <a th:unless="${isAuthenticated}" href="/register" class="btn btn--base-outline btn-sm">register</a>
 
-                                <div th:if="${isAuthenticated}">
-
-                                    <p th:text="'اهلاّ: ' + ${username}" class="btn btn--base-outline btn-sm"></p>
-
-                                </div>
-                            </div>
+                        <li>
+                            <a th:if="${!isAuthenticated}" href="/login" class="btn btn--base-outline btn-sm">Login</a>
                         </li>
 
+                        <li>
+                            <a th:if="${!isAuthenticated}" href="/register" class="btn btn--base-outline btn-sm">Register</a>
+                        </li>
+                        <li>
+
+                            <p th:if="${isAuthenticated}" th:text="'Welcome: ' + ${username}" class="btn btn--base-outline btn-sm"></p>
+
+                        </li>
+                        <li>
+                            <a th:if="${isAuthenticated}" href="/logout" class="btn btn--base-outline btn-sm">Logout</a>
+                        </li>
                     </ul>
-
-                    <div class="header-buttons d-lg-block d-none">
-                        <a th:unless="${isAuthenticated}" href="/login" class="btn btn--base-outline btn-sm">login</a>
-                        <a th:unless="${isAuthenticated}" href="/register" class="btn btn--base-outline btn-sm">register</a>
-
-                        <div th:if="${isAuthenticated}">
-
-                            <p th:text="'welcome : ' + ${username}" class="btn btn--base-outline btn-sm"></p>
-
-                        </div>
-                    </div>
 
                     <div class="header-bar-area d-lg-none">
                         <div class="header-bar">
