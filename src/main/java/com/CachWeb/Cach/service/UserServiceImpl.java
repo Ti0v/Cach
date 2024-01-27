@@ -38,20 +38,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(UserDto userDto) {
         User user = new User();
-        user.setName(userDto.getFirstName() + " " + userDto.getLastName());
+        user.setName(userDto.getFullName());
         user.setEmail(userDto.getEmail());
 
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setPhoneNumber(userDto.getPhoneNumber());
-
-        Role role = roleRepository.findByName("ROLE_USER");
-
-        if(role == null){
-            role = checkRoleExist();
-        }
+        Role role;
+        if(userDto.getRoleName() != null) {
+            role = roleRepository.findByName(userDto.getRoleName());
+        } else role = roleRepository.findByName("ROLE_USER");
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
     }
+
     @Override
     public List<ExchangeRequest> getExchangeRequestsForUser(String email) {
         Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(email));
@@ -64,7 +63,10 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
+    @Override
+    public boolean emailExists(String email) {
+        return userRepository.existsByEmail(email);
+    }
 
 
     @Override
@@ -99,18 +101,5 @@ public class UserServiceImpl implements UserService {
         userDto.setEmail(user.getEmail());
         userDto.setPhoneNumber(user.getPhoneNumber());
         return userDto;
-    }
-
-    private Role checkRoleExist(){
-
-//        String ROLE_ADMIN="ROLE_ADMIN";
-//        Role role = new Role();
-//        role.setName(ROLE_ADMIN);
-//        roleRepository.save(role);
-        String ROLE_USER="ROLE_ADMIN";
-        Role role1 = new Role();
-        role1.setName(ROLE_USER);
-
-        return roleRepository.save(role1);
     }
 }

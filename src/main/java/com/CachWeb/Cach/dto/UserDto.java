@@ -25,9 +25,17 @@ public class UserDto
     @NotEmpty(message = "Phone number should not be empty")
     private String phoneNumber;
 
+    private String roleName;
+
     @NotEmpty(message = "Password should not be empty")
     private String password;
 
     @NotEmpty(message = "Password confirmation should not be empty")
     private String passwordConfirmation;
+
+    private String fullName;
+
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
 }

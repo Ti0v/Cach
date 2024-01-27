@@ -18,4 +18,5 @@ public interface UserService {
 
      List<ExchangeRequest> getExchangeRequestsForUser(String email);
 
+    boolean emailExists(String email);
 }

@@ -79,43 +79,80 @@ public class AuthController {
 
 
 
+//    @PostMapping("/register/save")
+//    public String registration(@Valid @ModelAttribute("user") UserDto user, BindingResult result,Model model) {
+//        // Check for existing email
+//        User existingUser = userService.findUserByEmail(user.getEmail());
+//        if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
+//            result.rejectValue("email", null, "This email already exists");
+//        }
+//
+//        // Check for password confirmation
+//        if (!user.getPassword().equals(user.getPasswordConfirmation())) {
+//            result.rejectValue("password", null, "The password and confirmation password do not match");
+//            result.rejectValue("passwordConfirmation", null, "The password and confirmation password do not match");
+//        }
+//
+//        if (result.hasErrors()) {
+//            try {
+//                // Handle errors based on their presence in the BindingResult
+//                if (result.getFieldError("email") != null) {
+//                    // Email error exists
+//                    String encodedError = URLEncoder.encode("This email already exists", StandardCharsets.UTF_8.toString());
+//                    return "redirect:/register?error=" + encodedError;
+//                } else if (result.getFieldError("password") != null || result.getFieldError("passwordConfirmation") != null) {
+//                    // Password or password confirmation error exists
+//                    // Handle this case as needed
+//                    String encodedError = URLEncoder.encode("Password mismatch", StandardCharsets.UTF_8.toString());
+//                    return "redirect:/register?error=" + encodedError;
+//                }
+//            } catch (UnsupportedEncodingException e) {
+//                // Handle the encoding exception, e.g., log the error
+//                e.printStackTrace();
+//            }
+//        }
+//
+//
+//        // Save user if no errors
+//        userService.saveUser(user);
+//
+//
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
+//        );
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//        // Redirect with a success message if needed
+//        return "redirect:/login";
+//    }
+
+
     @PostMapping("/register/save")
-    public String registration(@Valid @ModelAttribute("user") UserDto user, BindingResult result,Model model) {
+    public String registration(@Valid @ModelAttribute("user") UserDto user, BindingResult result, Model model) {
         // Check for existing email
-        User existingUser = userService.findUserByEmail(user.getEmail());
-        if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
-            result.rejectValue("email", null, "هذا الايميل موجود بالفعل");
+        if (userService.emailExists(user.getEmail())) {
+            result.rejectValue("email", null, "This email already exists");
         }
 
         // Check for password confirmation
         if (!user.getPassword().equals(user.getPasswordConfirmation())) {
-            result.rejectValue("password", null, "كلمة المرور وتأكيد كلمة المرور غير متطابقين");
-            result.rejectValue("passwordConfirmation", null, "كلمة المرور وتأكيد كلمة المرور غير متطابقين");
+            result.rejectValue("password", null, "The password and confirmation password do not match");
+            result.rejectValue("passwordConfirmation", null, "The password and confirmation password do not match");
         }
 
         if (result.hasErrors()) {
-            try {
-                // Handle errors based on their presence in the BindingResult
-                if (result.getFieldError("email") != null) {
-                    // Email error exists
-                    String encodedError = URLEncoder.encode("هذا الايميل موجود بالفعل", StandardCharsets.UTF_8.toString());
-                    return "redirect:/register?error=" + encodedError;
-                } else if (result.getFieldError("password") != null || result.getFieldError("passwordConfirmation") != null) {
-                    // Password or password confirmation error exists
-                    // Handle this case as needed
-                    String encodedError = URLEncoder.encode("كلمة المرور غير متطابقة", StandardCharsets.UTF_8.toString());
-                    return "redirect:/register?error=" + encodedError;
-                }
-            } catch (UnsupportedEncodingException e) {
-                // Handle the encoding exception, e.g., log the error
-                e.printStackTrace();
+            // Handle errors based on their presence in the BindingResult
+            if (result.getFieldError("email") != null) {
+                // Email error exists
+                return "redirect:/register?error=" + encodeError("This email already exists");
+            } else if (result.getFieldError("password") != null || result.getFieldError("passwordConfirmation") != null) {
+                // Password or password confirmation error exists
+                return "redirect:/register?error=" + encodeError("Password mismatch");
             }
         }
 
-
         // Save user if no errors
         userService.saveUser(user);
-
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
@@ -123,7 +160,17 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // Redirect with a success message if needed
-        return "redirect:/index";
+        return "redirect:/login";
+    }
+
+    private String encodeError(String errorMessage) {
+        try {
+            return URLEncoder.encode(errorMessage, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            // Log the error or handle it appropriately
+            e.printStackTrace();
+            return "redirect:/register?error=unknownError";
+        }
     }
 
 
