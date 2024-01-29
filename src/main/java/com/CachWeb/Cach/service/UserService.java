@@ -19,4 +19,12 @@ public interface UserService {
      List<ExchangeRequest> getExchangeRequestsForUser(String email);
 
     boolean emailExists(String email);
+
+    void savePasswordResetToken(User user);
+
+    String validatePasswordResetToken(String resetToken);
+
+    User getUserByToken(String resetToken);
+
+    void updatePassword(User user, String newPassword);
 }

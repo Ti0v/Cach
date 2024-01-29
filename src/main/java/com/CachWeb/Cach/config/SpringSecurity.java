@@ -63,12 +63,18 @@ public class SpringSecurity {
 
         return mailSender;
     }
+
+    private static final String[] AUTH_WHITELIST = {
+        "/send-verification/assets/**"
+    };
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.disable())
                 .authorizeHttpRequests((authorize) ->
                         authorize
-
+                                .requestMatchers(AUTH_WHITELIST).permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/user/**").hasAnyRole("USER","ADMIN")
                                 .anyRequest().permitAll()
